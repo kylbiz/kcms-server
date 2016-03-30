@@ -147,7 +147,10 @@ CollectionDb.prototype.renameCollection = function(options) {
 					db.renameCollectionAsync(oldCollectionName, newCollectionName)
 						.then(function(results) {
 							resolve(results);
-						});
+						})
+						.then(function(results) {
+							self.dbClient.close(db)
+						})
 				})
 				.catch(function(err) {
 					log("renameCollection: rename collection " + oldCollectionName + " to collection " + newCollectionName + " error.", err);
@@ -209,14 +212,17 @@ CollectionDb.prototype.insertOne = function(options) {
 				db.collectionAsync(collectionName)
 				.then(function(collection) {
 					collection.insert(data, function(err, results) {
+						
+						self.dbClient.close(db)
+
 						if(err) {
 							log("insertOne: insert data to collection " + collectionName + " error.");
 							reject(err);
 						} else {
 							log("insertOne: insert data to collection " + collectionName + " succeed.")
-							resolve(result);
+							resolve(results);
 						}
-					})
+					})					
 				})
 			})
 			.catch(function(err) {
@@ -307,12 +313,14 @@ CollectionDb.prototype.findAndModify = function(options) {
 						doc,
 						options.updateOptions,
 						function(err, results) {
+							self.dbClient.close(db);
+
 						if(err) {
 							log("findAndModify: find and modify  collection " + collectionName + " error.");
 							reject(err);
 						} else {
 							log("findAndModify: find and modify collection " + collectionName + " succeed.")
-							resolve(result);
+							resolve(results);
 						}
 					})
 
@@ -385,17 +393,20 @@ CollectionDb.prototype.findAndRemove = function(options) {
 				db.collectionAsync(collectionName)
 				.then(function(collection) {
 
-					collection.findAndModify(
+					collection.findAndRemove(
 						options.query,
 						options.sort,
 						options.removeOptions,
 						function(err, results) {
+
+							self.dbClient.close(db);
+
 						if(err) {
 							log("findAndRemove: find and remove  collection " + collectionName + " error.");
 							reject(err);
 						} else {
 							log("findAndRemove: find and remove collection " + collectionName + " succeed.")
-							resolve(result);
+							resolve(results);
 						}
 					})
 
@@ -409,6 +420,81 @@ CollectionDb.prototype.findAndRemove = function(options) {
 	})
 }
 
+
+// ------------------------------------------------
+
+/**
+ * remove documents of $collectionName
+ * this will not create an collection name $collectionName
+ * 
+ * @param  {options}   options 
+ * the options parameters shall contains the following properties:
+ * 
+ * @property {string} app_id app_id for authority verification
+ * 
+ * @property {string} app_secret app_id for authority verifaction
+ *
+ * @property {string} collectionName collection name needs to remove data
+ *
+ *@property {json} selector mongodb selector obj
+ *
+ * @property {json} removeOptions remove options about mongodb
+ * http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#remove
+ * 
+ */
+
+CollectionDb.prototype.remove = function(options) {
+	var self = this;
+	return new Promise(function(resolve, reject) {
+		if(!util.auth(options)
+			|| !options.hasOwnProperty("collectionName")
+			|| typeof(options.collectionName) !== "string"
+			|| !options.hasOwnProperty("selector")) {
+
+			log("remove: options illegal.", options);
+			var err = "remove: options illegal.";
+
+			resolve(err);
+		} else {
+			var collectionName = options.collectionName;
+
+			if(!options.hasOwnProperty("removeOptions")
+				|| !util.isJson(options.removeOptions)) {
+				options.removeOptions = {};
+			};
+
+
+			// find and modify data to collection $collectionName
+			self.dbClient.connect()
+			.then(function(db) {
+				db.collectionAsync(collectionName)
+				.then(function(collection) {
+
+					collection.remove(
+						options.selector,
+						options.removeOptions,
+						function(err, results) {
+
+						self.dbClient.close(db);
+
+						if(err) {
+							log("remove: find and remove  collection " + collectionName + " error.");
+							reject(err);
+						} else {
+							log("remove: find and remove collection " + collectionName + " succeed.")
+							resolve(results);
+						}
+					})
+
+				})
+			})
+			.catch(function(err) {
+				log("remove: find and remove collection " + collectionName + " succeed.")
+				reject(err);
+			})
+		}		
+	})
+}
 
 // ------------------------------------------------
 
@@ -451,18 +537,18 @@ CollectionDb.prototype.find = function(options) {
 				db.collectionAsync(collectionName)
 				.then(function(collection) {
 
-					collection.find(
-						options.query,
-						function(err, results) {
-						if(err) {
-							log("find: find data from collection " + collectionName + " error.");
-							reject(err);
-						} else {
-							log("find: find data from collection " + collectionName + " succeed.")
-							resolve(result);
-						}
-					})
+					collection.find(options.query)
+						.toArray(function(err, results) {
+							self.dbClient.close(db);
 
+							if(err) {
+								log("find: find data from collection " + collectionName + " error.");
+								reject(err);
+							} else {
+								log("find: find data from collection " + collectionName + " succeed.")
+								resolve(results);
+							}
+					})
 				})
 			})
 			.catch(function(err) {
@@ -523,19 +609,22 @@ CollectionDb.prototype.findOne = function(options) {
 				db.collectionAsync(collectionName)
 				.then(function(collection) {
 
-					collection.find(
+					collection.findOne(
 						options.query,
-						options.findOptions,
+						options.findOptions, 
 						function(err, results) {
-						if(err) {
-							log("findOne: find one doc from collection " + collectionName + " error.");
-							reject(err);
-						} else {
-							log("findOne: find one doc from collection " + collectionName + " succeed.")
-							resolve(result);
-						}
-					})
 
+							self.dbClient.close(db);
+
+							if(err) {
+								log("findOne: find one handle error.", err);
+								reject(err);
+							}	else {
+								log("findOne: find one handle succeed.");
+								resolve(results);
+							}
+						}
+					)
 				})
 			})
 			.catch(function(err) {
@@ -607,18 +696,21 @@ CollectionDb.prototype.update = function(options) {
 				db.collectionAsync(collectionName)
 				.then(function(collection) {
 
-					collection.find(
+					collection.update(
 						options.selector,
-						document,
+						{$set: options.document},
 						options.updateOptions,
 						function(err, results) {
-						if(err) {
-							log("update: update doc from collection " + collectionName + " error.");
-							reject(err);
-						} else {
-							log("update: update doc from collection " + collectionName + " succeed.")
-							resolve(result);
-						}
+
+							self.dbClient.close(db);
+
+							if(err) {
+								log("update: update doc from collection " + collectionName + " error.");
+								reject(err);
+							} else {
+								log("update: update doc from collection " + collectionName + " succeed.")
+								resolve(results);
+							}
 					})
 
 				})
@@ -631,6 +723,16 @@ CollectionDb.prototype.update = function(options) {
 	})
 }
 
-
 // ------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
 

@@ -35,5 +35,3 @@ node_modules
 # MAC FILE
 .DS_Store
 
-# test files
-test

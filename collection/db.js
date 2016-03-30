@@ -25,19 +25,21 @@ function DBClient() {
 module.exports = DBClient;
 
 
-DBClient.prototype.close = function() {
+DBClient.prototype.close = function(db) {
   var self = this;
-  return Promise(function(resolve, reject) {
-    self.connect()
-      .then(function(db) {
-        console.log("close db succeed.")
-        db.close();
-        resolve();
-      })
-      .catch(function(e) {
-        console.log("close db error.");
-        reject(e);
-      })
+
+  return new Promise(function(resolve, reject) {    
+    db.close()
+    .then(function(results) {
+
+      console.log("DBClient: close db client succeed.");
+      resolve(results)
+    })
+    .catch(function(e) {
+      
+      console.log("DBClient: close db client error.");
+      reject(e);
+    })
   })
 }
 
@@ -51,11 +53,11 @@ DBClient.prototype.connect = function () {
           }))
         }, function(err, db) {
         if (err) {
-          console.log("connect db %s error", dbsettings.db);
+          console.log("DBClient: connect db %s error", dbsettings.db);
           console.log(err);
           reject(err);
         } else {
-          console.log("connect db %s succeed", dbsettings.db);
+          console.log("DBClient: connect db %s succeed", dbsettings.db);
           resolve(db)
         };
       })

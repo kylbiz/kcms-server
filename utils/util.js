@@ -43,14 +43,14 @@ Util.prototype.isJson = function(obj){
  * @property {string} app_secret
  * @return {Boolean}         true if has authority
  */
-Util.prototype.verifyAuth = function(options) {
+Util.prototype.auth = function(options) {
 	var self = this;
 	if(!self.isJson(options)
 		|| !options.hasOwnProperty("app_id")
 		|| !options.hasOwnProperty("app_secret")
 		|| options['app_id'] !== app_id
 		|| options['app_secret'] !== app_secret) {
-		self.log("verifyAuth: has no authority.", options);
+		self.log("auth: has no authority.", options);
 		return false;
 	} else {
 		return true;

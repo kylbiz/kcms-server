@@ -2,8 +2,15 @@ var restify = require("restify");
 var serverSettings = require("./settings").server;
 var port = serverSettings.port;
 
+var Init = require("./lib/init").Init;
+var init = new Init();
+
+console.log(init)
+
 //-------------------------------------------------
-var server = restify.createServer();
+var server = restify.createServer(function() {
+	
+});
 
 //-------------------------------------------------
 
@@ -66,6 +73,7 @@ server.post("/test", function(req, res, next) {
 
 server.listen(port, function() {
   console.log('listening: %s', port);
+  init.initDb();
 })
 
 

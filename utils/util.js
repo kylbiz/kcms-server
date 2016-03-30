@@ -15,12 +15,22 @@ exports.Util = Util;
  * @param  {array} 
  */
 Util.prototype.log = function(info) {
-	console.log('--------------------------');
+	console.log('--------------------------------------------');
 	console.log(new Date());
 	for(var i = 0, max = arguments.length; i < max; i+=1) {
 		console.log(arguments[i]);
 	}
 }
+
+Util.prototype.logError = function(info) {
+	console.log('--------------------------------------------');
+	console.log(new Date());
+	for(var i = 0, max = arguments.length; i < max; i+=1) {
+		console.error(arguments[i]);
+	}
+}
+
+
 
 // ------------------------------------------------
 /**
@@ -45,6 +55,7 @@ Util.prototype.isJson = function(obj){
  */
 Util.prototype.auth = function(options) {
 	var self = this;
+	self.log("This is auth")
 	if(!self.isJson(options)
 		|| !options.hasOwnProperty("app_id")
 		|| !options.hasOwnProperty("app_secret")
@@ -58,8 +69,16 @@ Util.prototype.auth = function(options) {
 }
 
 // ------------------------------------------------
+/**
+ * verify if string is domain like string
+ * @param str
+ * @return { Boolean} true if str is domain like string
+ */
 
-
+Util.prototype.isDomain = function(str) {
+	var domainReg = /^(?!:\/\/)([a-zA-Z0-9]+\.)?[a-zA-Z0-9][a-zA-Z0-9-]+\.[a-zA-Z]{2,6}?$/i;
+	return domainReg.test(str);
+}
 
 
 // ------------------------------------------------

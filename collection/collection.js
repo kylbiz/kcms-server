@@ -38,7 +38,7 @@ CollectionDb.prototype.createCollection = function(options) {
 			log("createCollection: options illegal.", options);
 
 			var err = "createCollection: options illegal.";
-			resolve(err);
+			reject(err);
 
 		} else {
 			var collectionName = options.collectionName;
@@ -86,7 +86,7 @@ CollectionDb.prototype.dropCollection = function(options) {
 			log("dropCollection: options illegal.", options);
 
 			var err = "dropCollection: options illegal.";
-			resolve(err);
+			reject(err);
 
 		} else {
 			var collectionName = options.collectionName;
@@ -136,7 +136,7 @@ CollectionDb.prototype.renameCollection = function(options) {
 			log("renameCollection: options illegal.", options);
 
 			var err = "renameCollection: options illegal.";
-			resolve(err);
+			reject(err);
 
 		} else {
 			var oldCollectionName = options.oldCollectionName;
@@ -186,13 +186,13 @@ CollectionDb.prototype.insertOne = function(options) {
 		if(!util.auth(options)
 			|| !options.hasOwnProperty("collectionName")
 			|| typeof(options.collectionName) !== "string"
-			|| !options.hasOwnProperty("data")
+			|| !options.hasOwnPrFFoperty("data")
 			|| !util.isJson(options.data)) {
 
 			log("insertData: options illegal.", options);
 			var err = "insertData: options illegal.";
 
-			resolve(err);
+			reject(err);
 		} else {
 			var collectionName = options.collectionName;
 			var data = options.data;
@@ -273,7 +273,7 @@ CollectionDb.prototype.findAndModify = function(options) {
 			log("findAndModify: options illegal.", options);
 			var err = "findAndModify: options illegal.";
 
-			resolve(err);
+			reject(err);
 		} else {
 			var collectionName = options.collectionName;
 			var doc = options.doc;
@@ -371,7 +371,7 @@ CollectionDb.prototype.findAndRemove = function(options) {
 			log("findAndRemove: options illegal.", options);
 			var err = "findAndRemove: options illegal.";
 
-			resolve(err);
+			reject(err);
 		} else {
 			var collectionName = options.collectionName;
 
@@ -454,7 +454,7 @@ CollectionDb.prototype.remove = function(options) {
 			log("remove: options illegal.", options);
 			var err = "remove: options illegal.";
 
-			resolve(err);
+			reject(err);
 		} else {
 			var collectionName = options.collectionName;
 
@@ -527,7 +527,7 @@ CollectionDb.prototype.find = function(options) {
 			log("find: options illegal.", options);
 			var err = "find: options illegal.";
 
-			resolve(err);
+			reject(err);
 		} else {
 			var collectionName = options.collectionName;
 
@@ -594,7 +594,7 @@ CollectionDb.prototype.findOne = function(options) {
 			log("findOne: options illegal.", options);
 			var err = "findOne: options illegal.";
 
-			resolve(err);
+			reject(err);
 		} else {
 			var collectionName = options.collectionName;
 
@@ -676,8 +676,9 @@ CollectionDb.prototype.update = function(options) {
 			log("update: options illegal.", options);
 			var err = "update: options illegal.";
 
-			resolve(err);
+			reject(err);
 		} else {
+
 			var collectionName = options.collectionName;
 			var document = options.document;
 

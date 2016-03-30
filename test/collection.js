@@ -7,8 +7,6 @@ var AuthSettings = require("../settings").auth;
 var app_id = AuthSettings.app_id;
 var app_secret = AuthSettings.app_secret;
 
-
-
 var Util = require("../utils/util").Util;
 var util = new Util();
 
@@ -116,29 +114,50 @@ var collectionName2 = "CName2";
 // ------------------------------------------------
 
 // var updateOptions = {
-// 	app_id: app_id,
-// 	app_secret: app_secret,
-// 	collectionName: collectionName2,
-// 	selector: {
-// 		test: /test/
+// 	app_id: 'kyl_app_id',
+//   app_secret: 'kyl_app_secret',
+//   collectionName: collectionName2,
+//   selector: { 
+//   	hostDomain: 'liuzunkun.com'
 // 	},
-// 	document: {
-// 		test: "test-arg",
-// 		test2: "test2"
-// 	},
-// 	updateOptions: {
-// 		upsert: true,
-// 		multi: true
-// 	}
+//   document: { 
+//   	hostDomain: 'liuzunkun.com',
+//      hostEnName: '',
+//      hostCnName: '',
+//      hostDescription: '',
+//      updateTime: "Wed Mar 30 2016 18:23:26 GMT+0800 (CST)",
+//      handleAuthority: { owner: 'admin2222', group: 'admin' } },
+//   updateOptions: { upsert: true, multi: true } 
 // }
 
-// collectionDb.update(updateOptions)
-// 	.then(function(results) {
-// 		log("Test: update handle succeed.");
-// 	})
-// 	.catch(function(err) {
-// 		log("Test: update handle error.", err);
-// 	})
+
+// var updateOptions = { 
+// 	app_id: 'kyl_app_id',
+//   app_secret: 'kyl_app_secret',
+//   collectionName: 'Host',
+//   selector: { 
+//   	hostDomain: 'liuzunkun.com'
+// 	},
+//   document: { 
+//   	hostDomain: 'liuzunkun.com',
+//      hostEnName: '',
+//      hostCnName: '',
+//      hostDescription: '',
+//      updateTime: "Wed Mar 30 2016 18:23:26 GMT+0800 (CST)",
+//      handleAuthority: { owner: 'admin', group: 'admin' } },
+//   updateOptions: { upsert: true, multi: true } 
+// }
+
+
+
+
+collectionDb.update(updateOptions)
+	.then(function(results) {
+		log("Test: update handle succeed.");
+	})
+	.catch(function(err) {
+		log("Test: update handle error.", err);
+	})
 
 // ------------------------------------------------
 

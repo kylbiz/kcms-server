@@ -6,6 +6,8 @@ var util = new Util();
 
 var log = util.log;
 
+var Promise = require("bluebird");
+
 // ------------------------------------------------
 
 function CollectionDb() {

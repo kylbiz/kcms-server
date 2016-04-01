@@ -5,12 +5,16 @@ var port = serverSettings.port;
 var Init = require("./lib/init").Init;
 var init = new Init();
 
-console.log(init)
+var settings = require('./settings');
+var authSettings = settings.auth;
+var app_id = authSettings.app_id;
+var app_secret = authSettings.app_secret;
+
+var Util = require("../utils/util").Util;
+var util = new Util();
 
 //-------------------------------------------------
-var server = restify.createServer(function() {
-	
-});
+var server = restify.createServer();
 
 //-------------------------------------------------
 
@@ -25,19 +29,6 @@ server.use(restify.bodyParser());
 
 //-------------------------------------------------
 /**
- * print array of information
- * @param  {array} 
- */
-function log(info) {
-	console.log('--------------------------');
-
-	for(var i = 0, max = arguments.length; i < max; i+=1) {
-		console.log(arguments[i]);
-	}
-}
-
-//-------------------------------------------------
-/**
  * test if connected to the server
  * @return {json} return data about connect status
  */
@@ -46,11 +37,7 @@ server.post("/test", function(req, res, next) {
 	var message = "";
 
 	if(!userData
-		|| !userData.hasOwnProperty("app_id")
-		|| !userData.hasOwnProperty("app_secret")
-		|| userData.app_id !== "kyl_app_id"
-		|| userData.app_secret !== "kyl_app_secret") {
-
+		!util.auth(userData)) {
 		res.send({success: false, message: "error connect to the server."})
 	} else {
 		if(userData.hasOwnProperty("message")){
@@ -64,16 +51,7 @@ server.post("/test", function(req, res, next) {
 
 //-------------------------------------------------
 
-
-
-
-
-
-//-------------------------------------------------
-
 server.listen(port, function() {
   console.log('listening: %s', port);
   init.initDb();
 })
-
-

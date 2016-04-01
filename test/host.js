@@ -2,9 +2,9 @@ var Host = require('../lib/host').Host;
 
 var host = new Host();
 
-var AuthSettings = require("../settings").auth;
-var app_id = AuthSettings.app_id;
-var app_secret = AuthSettings.app_secret;
+var authSettings = require("../settings").auth;
+var app_id = authSettings.app_id;
+var app_secret = authSettings.app_secret;
 
 
 var Util = require("../utils/util").Util;

@@ -15,22 +15,25 @@ var log = util.log;
 
 // ------------------------------------------------
 
-var moduleOptions = {
-	app_id: app_id,
-	app_secret: app_secret,
-	hostDomain: "kyl.biz",
-	moduleEnName: "userdoc",
-	moduleCnName: "user articles"
+var testCreateModule function () {
+	var moduleOptions = {
+		app_id: app_id,
+		app_secret: app_secret,
+		hostDomain: "kyl.biz",
+		moduleEnName: "userdoc",
+		moduleCnName: "user articles"
+	}
+
+	moduleClient.createModule(moduleOptions)
+		.then(function(results) {
+			log("createModule: this handle succeed.");
+			log(results)
+		})
+		.catch(function(err) {
+			log("createModule: this handle error.", err);
+		})
 }
 
-moduleClient.createModule(moduleOptions)
-	.then(function(results) {
-		log("createModule: this handle succeed.");
-		log(results)
-	})
-	.catch(function(err) {
-		log("createModule: this handle error.", err);
-	})
 
 
 

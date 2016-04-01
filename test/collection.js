@@ -3,9 +3,9 @@ var CollectionDb = require("../collection/collection");
 
 var collectionDb = new CollectionDb();
 
-var AuthSettings = require("../settings").auth;
-var app_id = AuthSettings.app_id;
-var app_secret = AuthSettings.app_secret;
+var authSettings = require("../settings").auth;
+var app_id = authSettings.app_id;
+var app_secret = authSettings.app_secret;
 
 var Util = require("../utils/util").Util;
 var util = new Util();
@@ -20,7 +20,7 @@ var collectionName1 = "CName1";
 // var createOptions = {
 // 	app_id: app_id,
 // 	app_secret: app_secret,
-// 	collectionName: collectionName1        
+// 	collectionName: collectionName1
 // };
 
 // collectionDb.createCollection(createOptions)
@@ -109,7 +109,7 @@ var collectionName2 = "CName2";
 // 	})
 // 	.catch(function(err) {
 // 		log("Test: find one function error.", err);
-// 	}) 
+// 	})
 
 // ------------------------------------------------
 
@@ -117,35 +117,35 @@ var collectionName2 = "CName2";
 // 	app_id: 'kyl_app_id',
 //   app_secret: 'kyl_app_secret',
 //   collectionName: collectionName2,
-//   selector: { 
+//   selector: {
 //   	hostDomain: 'liuzunkun.com'
 // 	},
-//   document: { 
+//   document: {
 //   	hostDomain: 'liuzunkun.com',
 //      hostEnName: '',
 //      hostCnName: '',
 //      hostDescription: '',
 //      updateTime: "Wed Mar 30 2016 18:23:26 GMT+0800 (CST)",
 //      handleAuthority: { owner: 'admin2222', group: 'admin' } },
-//   updateOptions: { upsert: true, multi: true } 
+//   updateOptions: { upsert: true, multi: true }
 // }
 
 
-// var updateOptions = { 
+// var updateOptions = {
 // 	app_id: 'kyl_app_id',
 //   app_secret: 'kyl_app_secret',
 //   collectionName: 'Host',
-//   selector: { 
+//   selector: {
 //   	hostDomain: 'liuzunkun.com'
 // 	},
-//   document: { 
+//   document: {
 //   	hostDomain: 'liuzunkun.com',
 //      hostEnName: '',
 //      hostCnName: '',
 //      hostDescription: '',
 //      updateTime: "Wed Mar 30 2016 18:23:26 GMT+0800 (CST)",
 //      handleAuthority: { owner: 'admin', group: 'admin' } },
-//   updateOptions: { upsert: true, multi: true } 
+//   updateOptions: { upsert: true, multi: true }
 // }
 
 

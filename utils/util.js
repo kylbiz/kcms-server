@@ -1,10 +1,9 @@
-var AuthSettings = require("../settings").auth;
-var app_id = AuthSettings.app_id;
-var app_secret = AuthSettings.app_secret;
-
+var authSettings = require("../settings").auth;
+var app_id = authSettings.app_id;
+var app_secret = authSettings.app_secret;
 
 var Util = function() {
-
+	this.name = "Util";
 }
 
 exports.Util = Util;
@@ -12,7 +11,7 @@ exports.Util = Util;
 //-------------------------------------------------
 /**
  * print array of information
- * @param  {array} 
+ * @param  {array}
  */
 Util.prototype.log = function(info) {
 	console.log('--------------------------------------------');
@@ -30,8 +29,6 @@ Util.prototype.logError = function(info) {
 	}
 }
 
-
-
 // ------------------------------------------------
 /**
  * verify if an object is json object
@@ -39,9 +36,9 @@ Util.prototype.logError = function(info) {
  * @return {Boolean}     true if object is json like object
  */
 Util.prototype.isJson = function(obj){
-	var isJson =  typeof(obj) == "object" 
-		&& Object.prototype.toString.call(obj).toLowerCase() == "[object object]" 
-		&& !obj.length; 
+	var isJson =  typeof(obj) == "object"
+		&& Object.prototype.toString.call(obj).toLowerCase() == "[object object]"
+		&& !obj.length;
 	return isJson;
 }
 
@@ -49,13 +46,13 @@ Util.prototype.isJson = function(obj){
 /**
  * verify if user has authority
  * @param  {json} options contains at least the following properties:
- * @property {string} app_id 
+ * @property {string} app_id
  * @property {string} app_secret
  * @return {Boolean}         true if has authority
  */
 Util.prototype.auth = function(options) {
 	var self = this;
-	self.log("This is auth")
+	self.log("auth: This is auth")
 	if(!self.isJson(options)
 		|| !options.hasOwnProperty("app_id")
 		|| !options.hasOwnProperty("app_secret")
@@ -80,9 +77,31 @@ Util.prototype.isDomain = function(str) {
 	return domainReg.test(str);
 }
 
-
 // ------------------------------------------------
+/**
+ * generate random string lists
+ * references: http://www.xuanfengge.com/js-random.html
+ */
 
+Util.prototype.generateStr = function(randomFlag, min, max){
+	var str = "",
+		range = min,
+		arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+		'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+		'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G',
+		'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+		'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
+	// 随机产生
+	if(randomFlag){
+		range = Math.round(Math.random() * (max-min)) + min;
+	}
+	for(var i=0; i<range; i++){
+		pos = Math.round(Math.random() * (arr.length-1));
+		str += arr[pos];
+	}
+	return str;
+}
 
 // ------------------------------------------------

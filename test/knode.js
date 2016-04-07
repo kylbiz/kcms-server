@@ -171,6 +171,61 @@ var testLinkNode = function() {
 	})
 }
 
-testLinkNode()
+// testLinkNode()
+
+// ------------------------------------------------
+
+var testUnlinkNode = function() {
+	var userAddressOptions = {
+		app_id: app_id,
+		app_secret: app_secret,
+		hostDomain: hostDomain,
+		collectionName: "NodeMap",
+		nodeName: "contry2",
+		query: {
+			hostDomain: hostDomain,
+			nodeName: "contry2"
+		}
+	}
+	collectionDb.findOne(userAddressOptions)
+		.then(function(results) {
+			var nodeId = results.nodeId;
+
+			var options = {
+				hostDomain: hostDomain,
+				nodeId: nodeId,
+				app_id: app_id,
+				app_secret: app_secret
+			}
+
+			nodeClient.unlinkNode(options)
+				.then(function(results) {
+					log("unlinkNode: unlink node " + nodeId + " succeed.");
+				})
+				.catch(function(err) {
+					log("unlinkNode: unlink node " + nodeId + " error", err);
+				})
+
+
+		})
+		.catch(function(err) {
+			log(err);
+		})
+}
+
+testUnlinkNode();
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ------------------------------------------------

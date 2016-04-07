@@ -20,11 +20,11 @@
     "url": "https://github.com/kylbiz/kcms-server/issues"
   },
   "homepage": "https://github.com/kylbiz/kcms-server",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "bluebird": "^3.3.4",
     "mongodb": "^2.1.11",
-    "restify": "^4.0.4"
+    "restify": "^4.0.4",
+    "async": "^2.0.0-rc.2"
   }
 }

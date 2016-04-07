@@ -30,7 +30,5 @@ Results:
 {success: true, message: ""}
 
 ```
-
-
-
+   
 ### LICENSE: MIT

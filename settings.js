@@ -14,7 +14,7 @@ module.exports = {
     app_id: "kyl_app_id",
     app_secret: "kyl_app_secret"
   },
-  module: {
+  nodeHost: {
     tophost: "tophost",
     virtualhost: "virtualhost"
   },
@@ -23,17 +23,16 @@ module.exports = {
 	  "users",
 	  "NavLists",
 	  "NavMap",
-	  "ModuleLists",
-	  "ModuleMap",
-	  "Module",
+	  "NodeMap",
+	  "Node",
 	  "ArticleLists",
 	  "Article"
   ],
   collection: {
-    module: {
-      moduleDb: "Module",
-      moduleMapDb: "ModuleMap",
-      moduleListsDb: "ModuleLists"
+    node: {
+      nodeDb: "Node",
+      nodeMapDb: "NodeMap",
+      nodeListsDb: "NodeLists"
     }
   },
   domain: { // user must provide domain configuration

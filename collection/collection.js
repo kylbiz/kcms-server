@@ -1,5 +1,5 @@
 var DBClient = require('./db');
-var dbClient = new DBClient();
+// var dbClient = new DBClient();
 
 var Util = require("../utils/util").Util;
 var util = new Util();
@@ -11,7 +11,7 @@ var Promise = require("bluebird");
 // ------------------------------------------------
 
 function CollectionDb() {
-	this.dbClient = dbClient;
+	this.dbClient = new DBClient();
 }
 
 module.exports = CollectionDb;
@@ -20,16 +20,16 @@ module.exports = CollectionDb;
 // ------------------------------------------------
 /**
  * create collection function
- * 
+ *
  * @param  {options}   options  create an collection options,
  * the options parameters shall contains the following properties:
- * 
+ *
  * @property {string} app_id app_id for authority verification
- * 
+ *
  * @property {string} app_secret app_id for authority verifaction
- * 
+ *
  * @property {string} collectionName collection name shall be created
- * 
+ *
  */
 
 CollectionDb.prototype.createCollection = function(options) {
@@ -60,7 +60,7 @@ CollectionDb.prototype.createCollection = function(options) {
 					reject(err);
 				})
 		}
-		
+
 	})
 }
 
@@ -68,16 +68,16 @@ CollectionDb.prototype.createCollection = function(options) {
 // ------------------------------------------------
 /**
  * drop collection function
- * 
+ *
  * @param  {options}   options  drop an collection options,
  * the options parameters shall contains the following properties:
- * 
+ *
  * @property {string} app_id app_id for authority verification
- * 
+ *
  * @property {string} app_secret app_id for authority verifaction
- * 
+ *
  * @property {string} collectionName collection name shall be drop
- * 
+ *
  */
 
 CollectionDb.prototype.dropCollection = function(options) {
@@ -105,7 +105,7 @@ CollectionDb.prototype.dropCollection = function(options) {
 					reject(err);
 				})
 		}
-		
+
 	})
 }
 
@@ -113,18 +113,18 @@ CollectionDb.prototype.dropCollection = function(options) {
 
 /**
  * rename collection function
- * 
+ *
  * @param  {options}   options  rename an collection options,
  * the options parameters shall contains the following properties:
- * 
+ *
  * @property {string} app_id app_id for authority verification
- * 
+ *
  * @property {string} app_secret app_id for authority verifaction
- * 
+ *
  * @property {string} oldCollectionName collection name shall be rename
  *
  * @property {string} newCollectionName new collection name
- * 
+ *
  */
 
 CollectionDb.prototype.renameCollection = function(options) {
@@ -159,7 +159,7 @@ CollectionDb.prototype.renameCollection = function(options) {
 					reject(err);
 				})
 		}
-		
+
 	})
 }
 
@@ -168,18 +168,18 @@ CollectionDb.prototype.renameCollection = function(options) {
 /**
  * insert data to  collection, if not exists collection $collectionName
  * this will not create an collection name $collectionName
- * 
- * @param  {options}   options 
+ *
+ * @param  {options}   options
  * the options parameters shall contains the following properties:
- * 
+ *
  * @property {string} app_id app_id for authority verification
- * 
+ *
  * @property {string} app_secret app_id for authority verifaction
  *
  * @property {string} collectionName collection name needs to insert data
  *
  * @property {json} data user data that will insert to collection "collectionName"
- * 
+ *
  */
 
 CollectionDb.prototype.insertOne = function(options) {
@@ -214,7 +214,7 @@ CollectionDb.prototype.insertOne = function(options) {
 				db.collectionAsync(collectionName)
 				.then(function(collection) {
 					collection.insert(data, function(err, results) {
-						
+
 						self.dbClient.close(db)
 
 						if(err) {
@@ -224,14 +224,14 @@ CollectionDb.prototype.insertOne = function(options) {
 							log("insertOne: insert data to collection " + collectionName + " succeed.")
 							resolve(results);
 						}
-					})					
+					})
 				})
 			})
 			.catch(function(err) {
 				log("insertOne: insert data to collection " + collectionName + " succeed.")
 				reject(err);
 			})
-		}		
+		}
 	})
 }
 
@@ -240,25 +240,25 @@ CollectionDb.prototype.insertOne = function(options) {
 /**
  * find and modify about $collectionName
  * this will not create an collection name $collectionName
- * 
- * @param  {options}   options 
+ *
+ * @param  {options}   options
  * the options parameters shall contains the following properties:
- * 
+ *
  * @property {string} app_id app_id for authority verification
- * 
+ *
  * @property {string} app_secret app_id for authority verifaction
  *
  * @property {string} collectionName collection name needs to modify data
  *
  *@property {json} query mongodb query obj
  *
- *@property {json} sort 	If multiple docs match, choose the first one 
+ *@property {json} sort 	If multiple docs match, choose the first one
  *                       in the specified sort order as the object to manipulate.
- * 
+ *
  * @property {json} doc user data that will modify to collection "collectionName"
  *
  * @property {json} updateOptions update options about mongodb
- * 
+ *
  */
 
 CollectionDb.prototype.findAndModify = function(options) {
@@ -332,7 +332,7 @@ CollectionDb.prototype.findAndModify = function(options) {
 				log("findAndModify: find and modify collection " + collectionName + " succeed.")
 				reject(err);
 			})
-		}		
+		}
 	})
 }
 
@@ -341,24 +341,24 @@ CollectionDb.prototype.findAndModify = function(options) {
 /**
  * find and remove about $collectionName
  * this will not create an collection name $collectionName
- * 
- * @param  {options}   options 
+ *
+ * @param  {options}   options
  * the options parameters shall contains the following properties:
- * 
+ *
  * @property {string} app_id app_id for authority verification
- * 
+ *
  * @property {string} app_secret app_id for authority verifaction
  *
  * @property {string} collectionName collection name needs to remove data
  *
  *@property {json} query mongodb query obj
  *
- *@property {json} sort 	If multiple docs match, choose the first one 
+ *@property {json} sort 	If multiple docs match, choose the first one
  *                       in the specified sort order as the object to manipulate.
- * 
+ *
  *
  * @property {json} removeOptions remove options about mongodb
- * 
+ *
  */
 
 CollectionDb.prototype.findAndRemove = function(options) {
@@ -418,7 +418,7 @@ CollectionDb.prototype.findAndRemove = function(options) {
 				log("findAndRemove: find and remove collection " + collectionName + " succeed.")
 				reject(err);
 			})
-		}		
+		}
 	})
 }
 
@@ -428,12 +428,12 @@ CollectionDb.prototype.findAndRemove = function(options) {
 /**
  * remove documents of $collectionName
  * this will not create an collection name $collectionName
- * 
- * @param  {options}   options 
+ *
+ * @param  {options}   options
  * the options parameters shall contains the following properties:
- * 
+ *
  * @property {string} app_id app_id for authority verification
- * 
+ *
  * @property {string} app_secret app_id for authority verifaction
  *
  * @property {string} collectionName collection name needs to remove data
@@ -442,7 +442,7 @@ CollectionDb.prototype.findAndRemove = function(options) {
  *
  * @property {json} removeOptions remove options about mongodb
  * http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#remove
- * 
+ *
  */
 
 CollectionDb.prototype.remove = function(options) {
@@ -494,7 +494,7 @@ CollectionDb.prototype.remove = function(options) {
 				log("remove: find and remove collection " + collectionName + " succeed.")
 				reject(err);
 			})
-		}		
+		}
 	})
 }
 
@@ -503,18 +503,18 @@ CollectionDb.prototype.remove = function(options) {
 /**
  * find data about $collectionName
  * this will not create an collection name $collectionName
- * 
- * @param  {options}   options 
+ *
+ * @param  {options}   options
  * the options parameters shall contains the following properties:
- * 
+ *
  * @property {string} app_id app_id for authority verification
- * 
+ *
  * @property {string} app_secret app_id for authority verifaction
  *
  * @property {string} collectionName collection name needs to remove data
  *
  *@property {json} query mongodb query obj
- * 
+ *
  */
 
 CollectionDb.prototype.find = function(options) {
@@ -557,7 +557,7 @@ CollectionDb.prototype.find = function(options) {
 				log("find: find data from collection " + collectionName + " succeed.")
 				reject(err);
 			})
-		}		
+		}
 	})
 }
 
@@ -566,12 +566,12 @@ CollectionDb.prototype.find = function(options) {
 /**
  * find one data about $collectionName
  * this will not create an collection name $collectionName
- * 
- * @param  {options}   options 
+ *
+ * @param  {options}   options
  * the options parameters shall contains the following properties:
- * 
+ *
  * @property {string} app_id app_id for authority verification
- * 
+ *
  * @property {string} app_secret app_id for authority verifaction
  *
  * @property {string} collectionName collection name needs to remove data
@@ -579,9 +579,9 @@ CollectionDb.prototype.find = function(options) {
  * @property {json} query mongodb query obj
  *
  * @property {json} findOptions find options about findOne, details to refer :
- *  
+ *
  *  http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOne
- * 
+ *
  */
 
 CollectionDb.prototype.findOne = function(options) {
@@ -610,12 +610,10 @@ CollectionDb.prototype.findOne = function(options) {
 			.then(function(db) {
 				db.collectionAsync(collectionName)
 				.then(function(collection) {
-
 					collection.findOne(
 						options.query,
-						options.findOptions, 
+						options.findOptions,
 						function(err, results) {
-
 							self.dbClient.close(db);
 
 							if(err) {
@@ -633,7 +631,7 @@ CollectionDb.prototype.findOne = function(options) {
 				log("findOne: find one doc from collection " + collectionName + " succeed.")
 				reject(err);
 			})
-		}		
+		}
 	})
 }
 
@@ -641,16 +639,16 @@ CollectionDb.prototype.findOne = function(options) {
 
 /**
  * update documents about  $collectionName
- * 
- * this will not create an collection name $collectionName 
- * 
- * if updateOptions has property upsert true value 
- * 
- * @param  {options}   options 
+ *
+ * this will not create an collection name $collectionName
+ *
+ * if updateOptions has property upsert true value
+ *
+ * @param  {options}   options
  * the options parameters shall contains the following properties:
- * 
+ *
  * @property {string} app_id app_id for authority verification
- * 
+ *
  * @property {string} app_secret app_id for authority verifaction
  *
  * @property {string} collectionName collection name needs to remove data
@@ -660,9 +658,9 @@ CollectionDb.prototype.findOne = function(options) {
  * @property {json} document the update document
  *
  * @property {json} updateOptions update options about mongodb update, details to refer :
- *  
+ *
  *  http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#update
- * 
+ *
  */
 
 CollectionDb.prototype.update = function(options) {
@@ -684,8 +682,9 @@ CollectionDb.prototype.update = function(options) {
 			var collectionName = options.collectionName;
 			var document = options.document;
 
-			if(!document.hasOwnProperty("updateTime")) {
-				document.updateTime = new Date();
+			if(!document["$set"]
+			 ||!document.$set.hasOwnProperty("updateTime")) {
+				document.$set.updateTime = new Date();
 			}
 
 			if(!options.hasOwnProperty("updateOptions")
@@ -701,7 +700,7 @@ CollectionDb.prototype.update = function(options) {
 
 					collection.update(
 						options.selector,
-						{$set: options.document},
+						options.document,
 						options.updateOptions,
 						function(err, results) {
 
@@ -722,20 +721,8 @@ CollectionDb.prototype.update = function(options) {
 				log("update: update  doc from collection " + collectionName + " succeed.")
 				reject(err);
 			})
-		}		
+		}
 	})
 }
 
 // ------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-

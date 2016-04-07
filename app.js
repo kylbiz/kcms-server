@@ -10,7 +10,7 @@ var authSettings = settings.auth;
 var app_id = authSettings.app_id;
 var app_secret = authSettings.app_secret;
 
-var Util = require("../utils/util").Util;
+var Util = require("./utils/util").Util;
 var util = new Util();
 
 //-------------------------------------------------
@@ -37,7 +37,7 @@ server.post("/test", function(req, res, next) {
 	var message = "";
 
 	if(!userData
-		!util.auth(userData)) {
+		|| !util.auth(userData)) {
 		res.send({success: false, message: "error connect to the server."})
 	} else {
 		if(userData.hasOwnProperty("message")){

@@ -103,61 +103,77 @@ var collectionName2 = "CName2";
 // 	}
 // }
 
-// collectionDb.findOne(findOneOptions)
-// 	.then(function(results) {
-// 		log("Test: find one function succeed.", results);
-// 	})
-// 	.catch(function(err) {
-// 		log("Test: find one function error.", err);
-// 	})
+var findOneOptions = { app_id: 'kyl_app_id',
+  app_secret: 'kyl_app_secret',
+  collectionName: 'ModuleMap',
+  query:
+   { hostDomain: 'kyl.biz',
+		 moduleId: 'vwmNC7M9uFCjUcDIT8C5DdnNixe57lE74gHlfHC9'
+	 }
+}
+
+
+collectionDb.findOne(findOneOptions)
+	.then(function(results) {
+		log("Test: find one function succeed.", results);
+	})
+	.catch(function(err) {
+		log("Test: find one function error.", err);
+	})
 
 // ------------------------------------------------
 
 // var updateOptions = {
-// 	app_id: 'kyl_app_id',
-//   app_secret: 'kyl_app_secret',
-//   collectionName: collectionName2,
-//   selector: {
-//   	hostDomain: 'liuzunkun.com'
-// 	},
-//   document: {
-//   	hostDomain: 'liuzunkun.com',
-//      hostEnName: '',
-//      hostCnName: '',
-//      hostDescription: '',
-//      updateTime: "Wed Mar 30 2016 18:23:26 GMT+0800 (CST)",
-//      handleAuthority: { owner: 'admin2222', group: 'admin' } },
-//   updateOptions: { upsert: true, multi: true }
-// }
+	app_id: 'kyl_app_id',
+  app_secret: 'kyl_app_secret',
+  collectionName: collectionName2,
+  selector: {
+  	hostDomain: 'liuzunkun.com'
+	},
+  document: {
+    $set: {
+      hostDomain: 'liuzunkun.com',
+      hostEnName: '',
+      hostCnName: '',
+      hostDescription: '',
+      updateTime: "Wed Mar 30 2016 18:23:26 GMT+0800 (CST)",
+      handleAuthority: { owner: 'admin2222', group: 'admin' }
+    }
+   },
+  updateOptions: { upsert: true, multi: true }
+}
 
 
-// var updateOptions = {
-// 	app_id: 'kyl_app_id',
-//   app_secret: 'kyl_app_secret',
-//   collectionName: 'Host',
-//   selector: {
-//   	hostDomain: 'liuzunkun.com'
-// 	},
-//   document: {
-//   	hostDomain: 'liuzunkun.com',
-//      hostEnName: '',
-//      hostCnName: '',
-//      hostDescription: '',
-//      updateTime: "Wed Mar 30 2016 18:23:26 GMT+0800 (CST)",
-//      handleAuthority: { owner: 'admin', group: 'admin' } },
-//   updateOptions: { upsert: true, multi: true }
-// }
+var updateOptions = {
+	app_id: 'kyl_app_id',
+  app_secret: 'kyl_app_secret',
+  collectionName: 'Host',
+  selector: {
+  	hostDomain: 'liuzunkun.com'
+	},
+  document: {
+    $set: {
+      hostDomain: 'liuzunkun.com',
+      hostEnName: '',
+      hostCnName: '',
+      hostDescription: '',
+      updateTime: "Wed Mar 30 2016 18:23:26 GMT+0800 (CST)",
+      handleAuthority: { owner: 'admin', group: 'admin' }
+    }
+   },
+  updateOptions: { upsert: true, multi: true }
+}
 
 
 
 
-collectionDb.update(updateOptions)
-	.then(function(results) {
-		log("Test: update handle succeed.");
-	})
-	.catch(function(err) {
-		log("Test: update handle error.", err);
-	})
+// collectionDb.update(updateOptions)
+// 	.then(function(results) {
+// 		log("Test: update handle succeed.");
+// 	})
+// 	.catch(function(err) {
+// 		log("Test: update handle error.", err);
+// 	})
 
 // ------------------------------------------------
 

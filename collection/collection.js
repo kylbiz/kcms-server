@@ -465,7 +465,6 @@ CollectionDb.prototype.remove = function(options) {
 				options.removeOptions = {};
 			};
 
-
 			// find and modify data to collection $collectionName
 			self.dbClient.connect()
 			.then(function(db) {

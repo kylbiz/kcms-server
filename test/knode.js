@@ -176,7 +176,7 @@ var testLinkNode = function() {
 // ------------------------------------------------
 
 var testUnlinkNode = function() {
-	var userAddressOptions = {
+	var unlinkOptions = {
 		app_id: app_id,
 		app_secret: app_secret,
 		hostDomain: hostDomain,
@@ -187,7 +187,7 @@ var testUnlinkNode = function() {
 			nodeName: "contry2"
 		}
 	}
-	collectionDb.findOne(userAddressOptions)
+	collectionDb.findOne(unlinkOptions)
 		.then(function(results) {
 			var nodeId = results.nodeId;
 
@@ -213,10 +213,43 @@ var testUnlinkNode = function() {
 		})
 }
 
-testUnlinkNode();
+// testUnlinkNode();
 
+// ------------------------------------------------
+var testRemoveNode = function() {
+	var removeNodeOptions = {
+		app_id: app_id,
+		app_secret: app_secret,
+		hostDomain: hostDomain,
+		collectionName: "NodeMap",
+		nodeName: "contry2",
+		query: {
+			hostDomain: hostDomain,
+			nodeName: "contry2"
+		}
+	}
+	collectionDb.findOne(removeNodeOptions)
+		.then(function(results) {
+			var nodeId = results.nodeId;
 
+			var options = {
+				hostDomain: hostDomain,
+				nodeId: nodeId,
+				app_id: app_id,
+				app_secret: app_secret
+			}
 
+			nodeClient.removeNode(options)
+				.then(function(results) {
+					log("Test: remove node " + nodeId + " succeed.");
+				})
+				.catch(function(err) {
+					log("Test: remove node " + nodeId + " error.", err);
+				})
+		})
+}
+
+testRemoveNode();
 
 
 

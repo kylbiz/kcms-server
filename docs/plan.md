@@ -6,12 +6,12 @@ This package provices node point about a tree.
 
 #### REST API
 1. NODE REST API
-  * createNode
-  * removeNode
-  * updateNode
-  * linkNode
-  * unlinkNode
-  * removeNode
+  * ~~createNode~~
+  * ~~removeNode~~
+  * ~~updateNode~~
+  * ~~linkNode~~
+  * ~~unlinkNode~~
+  * ~~removeNode~~
 
 2. Nav REST API
 

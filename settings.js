@@ -25,9 +25,8 @@ module.exports = {
 	  "NavMap",
 	  "NodeMap",
 	  "Node",
-	  "ArticleLists",
-	  "Article",
-    "Ktype"
+    "Ktype",
+    "KValue"
   ],
   collection: {
     node: {
@@ -35,7 +34,11 @@ module.exports = {
       nodeMapDb: "NodeMap",
       nodeListsDb: "NodeLists"
     },
-    ktype: "Ktype"
+    ktype: "Ktype",
+    kvalue: 'KValue'
+  },
+  classType: {
+    post: 'post'
   },
   domain: { // user must provide domain configuration
     defaultDomain: 'kyl.biz',

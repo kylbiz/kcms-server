@@ -26,14 +26,16 @@ module.exports = {
 	  "NodeMap",
 	  "Node",
 	  "ArticleLists",
-	  "Article"
+	  "Article",
+    "Ktype"
   ],
   collection: {
     node: {
       nodeDb: "Node",
       nodeMapDb: "NodeMap",
       nodeListsDb: "NodeLists"
-    }
+    },
+    ktype: "Ktype"
   },
   domain: { // user must provide domain configuration
     defaultDomain: 'kyl.biz',

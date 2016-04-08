@@ -188,7 +188,7 @@ CollectionDb.prototype.insertOne = function(options) {
 		if(!util.auth(options)
 			|| !options.hasOwnProperty("collectionName")
 			|| typeof(options.collectionName) !== "string"
-			|| !options.hasOwnPrFFoperty("data")
+			|| !options.hasOwnProperty("data")
 			|| !util.isJson(options.data)) {
 
 			log("insertData: options illegal.", options);

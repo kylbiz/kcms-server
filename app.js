@@ -1,4 +1,8 @@
 var restify = require("restify");
+
+var KCMS = require('./lib/kcms').KCMS;
+var kcms = new KCMS();
+
 var serverSettings = require("./settings").server;
 var port = serverSettings.port;
 
@@ -32,22 +36,7 @@ server.use(restify.bodyParser());
  * test if connected to the server
  * @return {json} return data about connect status
  */
-server.post("/test", function(req, res, next) {
-	var userData = JSON.parse(req.body);
-	var message = "";
-
-	if(!userData
-		|| !util.auth(userData)) {
-		res.send({success: false, message: "error connect to the server."})
-	} else {
-		if(userData.hasOwnProperty("message")){
-			message = userData.message
-		}
-
-		res.send({success: true, message: message});
-	}
-	next();
-})
+server.post("/test", kcms.test)
 
 //-------------------------------------------------
 

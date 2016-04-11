@@ -61,6 +61,7 @@ Util.prototype.auth = function(options) {
 		self.log("auth: has no authority.", options);
 		return false;
 	} else {
+		self.log("auth: has authority.")
 		return true;
 	}
 }
@@ -102,6 +103,31 @@ Util.prototype.generateStr = function(randomFlag, min, max){
 		str += arr[pos];
 	}
 	return str;
+}
+
+// ------------------------------------------------
+/**
+ * internal function about handle data for update
+ * @param {json} handleData
+ * @return {json} data for update options
+ */
+
+Util.prototype._handleData = function(handleData) {
+	var self = this;
+	var dataObj = {
+		"data.updateTime": new Date()
+	}
+	if(self.isJson(handleData)) {
+		for(key in handleData) {
+			if(handleData.hasOwnProperty(key)) {
+				dataObj["data." + key] = handleData[key];
+			}
+		}
+	}
+	if(handleData.hasOwnProperty("title")) {
+		dataObj["kVName"] = handleData.title;
+	}
+	return dataObj;
 }
 
 // ------------------------------------------------

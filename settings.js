@@ -35,7 +35,8 @@ module.exports = {
       nodeListsDb: "NodeLists"
     },
     ktype: "Ktype",
-    kvalue: 'KValue'
+    kvalue: 'KValue',
+    users: "users"
   },
   classType: {
     post: 'post'
@@ -43,5 +44,10 @@ module.exports = {
   domain: { // user must provide domain configuration
     defaultDomain: 'kyl.biz',
     hostDomain: "kyl.biz"
+  },
+  accounts: {
+    password: {
+      min: 6
+    }
   }
 }

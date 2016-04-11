@@ -191,8 +191,8 @@ CollectionDb.prototype.insertOne = function(options) {
 			|| !options.hasOwnProperty("data")
 			|| !util.isJson(options.data)) {
 
-			log("insertData: options illegal.", options);
-			var err = "insertData: options illegal.";
+			log("insertOne: options illegal.", options);
+			var err = "insertOne: options illegal.";
 
 			reject(err);
 		} else {

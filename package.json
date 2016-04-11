@@ -22,9 +22,12 @@
   "homepage": "https://github.com/kylbiz/kcms-server",
   "devDependencies": {},
   "dependencies": {
+    "async": "^2.0.0-rc.2",
+    "bcrypt": "^0.8.5",
     "bluebird": "^3.3.4",
     "mongodb": "^2.1.11",
     "restify": "^4.0.4",
-    "async": "^2.0.0-rc.2"
+    "sha256": "^0.2.0",
+    "underscore": "^1.8.3"
   }
 }

@@ -49,10 +49,53 @@ var testCreateUser = function(options) {
     })
 }
 
-testCreateUser({
-  // username: "zunkun",
-  password: "2",
-  email: "zunkun.liu@kyl.biz"
-});
+var username = "zunkun";
+var email = "zunkun.liu@kyl.biz";
+var password = "abdefgh";
+
+// testCreateUser({
+//   username: username,
+//   password: password,
+//   email: email
+// });
+
+// ------------------------------------------------
+var testResetPassword = function(options) {
+  var userOptions = {
+    app_id: app_id,
+    app_secret: app_secret
+  }
+
+  if(options.hasOwnProperty("username")) {
+    userOptions.username = options.username;
+  }
+
+  if(options.hasOwnProperty("email")) {
+    userOptions.email = options.email;
+  }
+
+  if(options.hasOwnProperty("oldPassword")) {
+    userOptions.oldPassword = options.oldPassword;
+  }
+
+  if(options.hasOwnProperty("newPassword")) {
+    userOptions.newPassword = options.newPassword;
+  }
+
+  accountsClient.resetPassword(userOptions)
+    .then(function(results) {
+      log("Test: reset password succeed.");
+    })
+    .catch(function(err) {
+      log("Test: reset password error.", err);
+    })
+}
+
+// testResetPassword({
+//   username: username,
+//   oldPassword: "abcdefghijkll",
+//   newPassword: "abcdefghijkl"
+// })
+
 
 // ------------------------------------------------

@@ -99,3 +99,33 @@ var testResetPassword = function(options) {
 
 
 // ------------------------------------------------
+var testFindUserByQuery = function(options) {
+  var findOptions = {
+    app_id: app_id,
+    app_secret: app_secret
+  }
+
+  if(options.username) {
+    findOptions.username = options.username;
+  }
+
+  if(options.email) {
+    findOptions.email = options.email;
+  }
+
+  accountsClient.findUserByQuery(findOptions)
+    .then(function(results) {
+      log("Test: find user succeed.", results);
+    })
+    .catch(function(err) {
+      log("Test: find user error.", err);
+    })
+}
+
+testFindUserByQuery({
+  app_id: app_id,
+  app_secret: app_secret,
+  username: "zunkun"
+})
+
+// ------------------------------------------------

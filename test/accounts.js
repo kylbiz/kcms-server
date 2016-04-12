@@ -6,7 +6,6 @@ var authSettings = require("../settings").auth;
 var app_id = authSettings.app_id;
 var app_secret = authSettings.app_secret;
 
-
 var Util = require("../utils/util").Util;
 var util = new Util();
 
@@ -51,12 +50,9 @@ var testCreateUser = function(options) {
 }
 
 testCreateUser({
-  username: "zunkun",
-  password: "abcdefgh",
+  // username: "zunkun",
+  password: "2",
   email: "zunkun.liu@kyl.biz"
 });
-
-
-
 
 // ------------------------------------------------

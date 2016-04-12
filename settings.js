@@ -47,7 +47,9 @@ module.exports = {
   },
   accounts: {
     password: {
-      min: 6
+      // Reference: http://bbs.csdn.net/topics/390805595
+      reg: /^[a-zA-Z]\w{5,17}/,
+      errorMsg: "密码不能为中文，且长度在6-18之间"
     }
   }
 }

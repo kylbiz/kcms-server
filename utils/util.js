@@ -1,6 +1,8 @@
-var authSettings = require("../settings").auth;
+var settings = require("../settings");
+var authSettings = settings.auth;
 var app_id = authSettings.app_id;
 var app_secret = authSettings.app_secret;
+var passwordReg = settings.accounts.password.reg;
 
 var Util = function() {
 	this.name = "Util";
@@ -136,6 +138,13 @@ Util.prototype.isEmail = function(email) {
 	var emailReg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return  emailReg.test(email);
 }
+
+// ------------------------------------------------
+Util.prototype.legalPassword = function(password) {
+	return passwordReg.test(password);
+}
+
+
 
 
 

@@ -24,8 +24,11 @@
     "async": "^2.0.0-rc.2",
     "bcrypt": "^0.8.5",
     "bluebird": "^3.3.4",
+    "express-session": "^1.13.0",
     "mongodb": "^2.1.11",
     "restify": "^4.0.4",
-    "sha256": "^0.2.0"
+    "sha256": "^0.2.0",
+    "restify-oauth2": "git://github.com/domenic/restify-oauth2.git#cf5837d6b695c3d98264e53854b3b6d8f1fd4d2f"
+
   }
 }

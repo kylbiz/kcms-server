@@ -8,7 +8,8 @@ module.exports = {
     poolSize: 30000
   },
   server: {
-    port: 3000
+    port: 3000,
+    name: "kcms_server" // this server name you shall define
   },
   auth: {
     app_id: "kyl_app_id",
@@ -18,16 +19,6 @@ module.exports = {
     tophost: "tophost",
     virtualhost: "virtualhost"
   },
-  collectionLists: [
-		"Host",
-	  "users",
-	  "NavLists",
-	  "NavMap",
-	  "NodeMap",
-	  "Node",
-    "Ktype",
-    "KValue"
-  ],
   collection: {
     node: {
       nodeDb: "Node",

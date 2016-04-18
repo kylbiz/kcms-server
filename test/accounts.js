@@ -53,11 +53,11 @@ var username = "zunkun";
 var email = "zunkun.liu@kyl.biz";
 var password = "abdefgh";
 
-// testCreateUser({
-//   username: username,
-//   password: password,
-//   email: email
-// });
+testCreateUser({
+  username: username,
+  password: password,
+  email: email
+});
 
 // ------------------------------------------------
 var testResetPassword = function(options) {
@@ -122,10 +122,10 @@ var testFindUserByQuery = function(options) {
     })
 }
 
-testFindUserByQuery({
-  app_id: app_id,
-  app_secret: app_secret,
-  username: "zunkun"
-})
+// testFindUserByQuery({
+//   app_id: app_id,
+//   app_secret: app_secret,
+//   username: "zunkun"
+// })
 
 // ------------------------------------------------

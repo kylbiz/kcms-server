@@ -2,10 +2,6 @@ var NodeHandle = require('../lib/knode').NodeHandle;
 
 var nodeClient = new NodeHandle();
 
-var authSettings = require("../settings").auth;
-var app_id = authSettings.app_id;
-var app_secret = authSettings.app_secret;
-
 var hostDomain = "kyl.biz";
 
 
@@ -22,8 +18,6 @@ var log = util.log;
 
 var testCreateNode =	 function (nodeName, fatherNodeId) {
 	var nodeOptions = {
-		app_id: app_id,
-		app_secret: app_secret,
 		hostDomain: hostDomain,
 		nodeName: nodeName,
 	}
@@ -55,8 +49,6 @@ var nodeLists = ["user",
 // -------------------------------------------
 
 // collectionDb.findOne({
-// 	app_id: app_id,
-// 	app_secret: app_secret,
 // 	hostDomain: hostDomain,
 // 	collectionName: "NodeMap",
 // 	query: {
@@ -68,8 +60,6 @@ var nodeLists = ["user",
 // 	var nodeId = results.nodeId;
 //
 // 	var userArticleOptions = {
-// 		app_id: app_id,
-// 		app_secret: app_secret,
 // 		hostDomain: hostDomain,
 // 		collectionName: "Node",
 // 		nodeName: "userArticle",
@@ -85,8 +75,6 @@ var nodeLists = ["user",
 
 function testUpdateNode(nodeName) {
 	var updateOptions = {
-		app_id: app_id,
-		app_secret: app_secret,
 		hostDomain: hostDomain,
 		nodeName: nodeName,
 		selector: {
@@ -119,8 +107,6 @@ var nodeName = "user";
 
 var testLinkNode = function() {
 	collectionDb.findOne({
-		app_id: app_id,
-		app_secret: app_secret,
 		hostDomain: hostDomain,
 		collectionName: "NodeMap",
 		query: {
@@ -132,8 +118,6 @@ var testLinkNode = function() {
 		var fatherNodeId = results.nodeId;
 
 		var userAddressOptions = {
-			app_id: app_id,
-			app_secret: app_secret,
 			hostDomain: hostDomain,
 			collectionName: "NodeMap",
 			nodeName: "userAddress",
@@ -149,9 +133,7 @@ var testLinkNode = function() {
 				var options = {
 					hostDomain: hostDomain,
 					fatherNodeId: fatherNodeId,
-					sonNodeId: sonNodeId,
-					app_id: app_id,
-					app_secret: app_secret
+					sonNodeId: sonNodeId
 				}
 				nodeClient.linkNode(options)
 					.then(function(results) {
@@ -177,8 +159,6 @@ var testLinkNode = function() {
 
 var testUnlinkNode = function() {
 	var unlinkOptions = {
-		app_id: app_id,
-		app_secret: app_secret,
 		hostDomain: hostDomain,
 		collectionName: "NodeMap",
 		nodeName: "contry2",
@@ -193,9 +173,7 @@ var testUnlinkNode = function() {
 
 			var options = {
 				hostDomain: hostDomain,
-				nodeId: nodeId,
-				app_id: app_id,
-				app_secret: app_secret
+				nodeId: nodeId
 			}
 
 			nodeClient.unlinkNode(options)
@@ -218,8 +196,6 @@ var testUnlinkNode = function() {
 // ------------------------------------------------
 var testRemoveNode = function() {
 	var removeNodeOptions = {
-		app_id: app_id,
-		app_secret: app_secret,
 		hostDomain: hostDomain,
 		collectionName: "NodeMap",
 		nodeName: "contry2",
@@ -234,9 +210,7 @@ var testRemoveNode = function() {
 
 			var options = {
 				hostDomain: hostDomain,
-				nodeId: nodeId,
-				app_id: app_id,
-				app_secret: app_secret
+				nodeId: nodeId
 			}
 
 			nodeClient.removeNode(options)
@@ -250,15 +224,4 @@ var testRemoveNode = function() {
 }
 
 testRemoveNode();
-
-
-
-
-
-
-
-
-
-
-
 // ------------------------------------------------

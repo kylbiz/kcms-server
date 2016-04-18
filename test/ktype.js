@@ -3,10 +3,6 @@ var Ktype = require('../lib/ktype').Ktype;
 var ktypeClient = new Ktype();
 
 var settings = require("../settings");
-var authSettings = settings.auth;
-
-var app_id = authSettings.app_id;
-var app_secret = authSettings.app_secret;
 
 var ktypeDb = settings.collection.ktype;
 
@@ -26,8 +22,6 @@ var log = util.log;
 
 var testCreateType = function(typeName, description) {
   var options = {
-    app_id: app_id,
-    app_secret: app_secret,
     hostDomain: hostDomain,
     typeName: typeName,
     description: description
@@ -51,8 +45,6 @@ var description = "这是区域分类";
 // ------------------------------------------------
 var testUpdateType = function(typeName, description) {
   var findOptions = {
-    app_id: app_id,
-    app_secret: app_secret,
     collectionName: ktypeDb,
     hostDomain: hostDomain,
     query: {
@@ -66,8 +58,6 @@ var testUpdateType = function(typeName, description) {
       var typeId = results.typeId;
 
       var typeOptions = {
-        app_id: app_id,
-        app_secret: app_secret,
         hostDomain: hostDomain,
         typeId: typeId
       }
@@ -96,8 +86,6 @@ var testUpdateType = function(typeName, description) {
 // ------------------------------------------------
 var testRemoveType = function(options) {
   var findOptions = {
-    app_id: app_id,
-    app_secret: app_secret,
     collectionName: ktypeDb,
     hostDomain: hostDomain,
     query: {
@@ -111,8 +99,6 @@ var testRemoveType = function(options) {
       var typeId = results.typeId;
 
       var typeOptions = {
-        app_id: app_id,
-        app_secret: app_secret,
         hostDomain: hostDomain,
         typeId: typeId
       }

@@ -3,11 +3,6 @@ var Posts = require('../lib/posts').Posts;
 var postClient = new Posts();
 
 var settings = require("../settings");
-var authSettings = settings.auth;
-
-var app_id = authSettings.app_id;
-var app_secret = authSettings.app_secret;
-
 
 var hostDomain = settings.domain.hostDomain;
 
@@ -30,8 +25,6 @@ var content = "开公司找开业啦，在线操作，注册公司只需三步�
 
 var testCreatePosts = function() {
   var options = {
-    app_id: app_id,
-    app_secret: app_secret,
     hostDomain: hostDomain,
     typeId: typeId,
     kVName: kVName,
@@ -56,8 +49,6 @@ var testCreatePosts = function() {
 
 var testUpdatePost = function() {
   var findOneOptions = {
-    app_id: app_id,
-    app_secret: app_secret,
     hostDomain: hostDomain,
     collectionName: kvalueDb,
     query: {
@@ -73,8 +64,6 @@ var testUpdatePost = function() {
         var nodeId = results.nodeId;
 
         var options = {
-          app_id: app_id,
-          app_secret: app_secret,
           hostDomain: hostDomain,
           nodeId: nodeId,
           post: {
@@ -100,8 +89,6 @@ var testUpdatePost = function() {
 // ------------------------------------------------
 var testRemovePost = function() {
   var findOneOptions = {
-    app_id: app_id,
-    app_secret: app_secret,
     hostDomain: hostDomain,
     collectionName: kvalueDb,
     query: {
@@ -117,8 +104,6 @@ var testRemovePost = function() {
         var nodeId = results.nodeId;
 
         var options = {
-          app_id: app_id,
-          app_secret: app_secret,
           hostDomain: hostDomain,
           nodeId: nodeId
         }

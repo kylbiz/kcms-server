@@ -3,10 +3,6 @@ var CollectionDb = require("../collection/collection");
 
 var collectionDb = new CollectionDb();
 
-var authSettings = require("../settings").auth;
-var app_id = authSettings.app_id;
-var app_secret = authSettings.app_secret;
-
 var Util = require("../utils/util").Util;
 var util = new Util();
 
@@ -18,8 +14,6 @@ var log = util.log;
 var collectionName1 = "CName1";
 
 // var createOptions = {
-// 	app_id: app_id,
-// 	app_secret: app_secret,
 // 	collectionName: collectionName1
 // };
 
@@ -39,8 +33,6 @@ var collectionName1 = "CName1";
 var collectionName2 = "CName2";
 
 // var renameOptions = {
-// 	app_id: app_id,
-// 	app_secret: app_secret,
 // 	oldCollectionName: collectionName1,
 // 	newCollectionName: collectionName2
 // }
@@ -57,8 +49,6 @@ var collectionName2 = "CName2";
 // ------------------------------------------------
 
 // var insertOptions = {
-// 	app_id: app_id,
-// 	app_secret: app_secret,
 // 	collectionName: collectionName2,
 // 	data: {
 // 		test: "test" + Math.floor(Math.random() * 100)
@@ -76,8 +66,6 @@ var collectionName2 = "CName2";
 
 // ------------------------------------------------
 // var findOptions = {
-// 	app_id: app_id,
-// 	app_secret: app_secret,
 // 	collectionName: collectionName2,
 // 	query: {
 // 		test: /test/
@@ -95,16 +83,13 @@ var collectionName2 = "CName2";
 // ------------------------------------------------
 
 // var findOneOptions = {
-// 	app_id: app_id,
-// 	app_secret: app_secret,
 // 	collectionName: collectionName2,
 // 	query: {
 // 		test: /test/
 // 	}
 // }
 
-var findOneOptions = { app_id: 'kyl_app_id',
-  app_secret: 'kyl_app_secret',
+var findOneOptions = {
   collectionName: 'ModuleMap',
   query:
    { hostDomain: 'kyl.biz',
@@ -123,9 +108,7 @@ collectionDb.findOne(findOneOptions)
 
 // ------------------------------------------------
 
-// var updateOptions = {
-	app_id: 'kyl_app_id',
-  app_secret: 'kyl_app_secret',
+var updateOptions = {
   collectionName: collectionName2,
   selector: {
   	hostDomain: 'liuzunkun.com'

@@ -1,7 +1,6 @@
 var settings = require("../settings");
 var authSettings = settings.auth;
-var app_id = authSettings.app_id;
-var app_secret = authSettings.app_secret;
+
 var passwordReg = settings.accounts.password.reg;
 
 var bcrypt = require('bcrypt');
@@ -49,29 +48,6 @@ Util.prototype.isJson = function(obj){
 	return isJson;
 }
 
-// ------------------------------------------------
-/**
- * verify if user has authority
- * @param  {json} options contains at least the following properties:
- * @property {string} app_id
- * @property {string} app_secret
- * @return {Boolean}         true if has authority
- */
-Util.prototype.auth = function(options) {
-	var self = this;
-	self.log("auth: This is auth")
-	if(!self.isJson(options)
-		|| !options.hasOwnProperty("app_id")
-		|| !options.hasOwnProperty("app_secret")
-		|| options['app_id'] !== app_id
-		|| options['app_secret'] !== app_secret) {
-		self.log("auth: has no authority.", options);
-		return false;
-	} else {
-		self.log("auth: has authority.")
-		return true;
-	}
-}
 
 // ------------------------------------------------
 /**
@@ -196,7 +172,7 @@ Util.prototype.hashPassword = function (password) {
 
 // ------------------------------------------------
 Util.prototype.validExipiresId = function(updateTime, expiresIn) {
-	expiresIn = expiresIn || settings.auth.expiresIn;
+	expiresIn = expiresIn || authSettings.expiresIn;
 
 	updateTime = updateTime.getTime() / 1000;
 

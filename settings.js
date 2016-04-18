@@ -12,9 +12,7 @@ module.exports = {
     name: "kcms_server" // this server name you shall define
   },
   auth: {
-    app_id: "kyl_app_id",
-    app_secret: "kyl_app_secret",
-    expiresIn: 2
+    expiresIn: 7200
   },
   nodeHost: {
     tophost: "tophost",

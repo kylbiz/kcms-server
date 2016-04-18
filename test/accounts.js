@@ -2,10 +2,6 @@ var Accounts = require("../lib/accounts-server").Accounts;
 
 var accountsClient = new Accounts();
 
-var authSettings = require("../settings").auth;
-var app_id = authSettings.app_id;
-var app_secret = authSettings.app_secret;
-
 var Util = require("../utils/util").Util;
 var util = new Util();
 
@@ -15,8 +11,6 @@ var log = util.log;
 
 var testCreateUser = function(options) {
   var userOptions = {
-    app_id: app_id,
-    app_secret: app_secret
   }
 
   if(options.hasOwnProperty("username")) {
@@ -62,8 +56,6 @@ testCreateUser({
 // ------------------------------------------------
 var testResetPassword = function(options) {
   var userOptions = {
-    app_id: app_id,
-    app_secret: app_secret
   }
 
   if(options.hasOwnProperty("username")) {
@@ -101,8 +93,6 @@ var testResetPassword = function(options) {
 // ------------------------------------------------
 var testFindUserByQuery = function(options) {
   var findOptions = {
-    app_id: app_id,
-    app_secret: app_secret
   }
 
   if(options.username) {
@@ -123,8 +113,6 @@ var testFindUserByQuery = function(options) {
 }
 
 // testFindUserByQuery({
-//   app_id: app_id,
-//   app_secret: app_secret,
 //   username: "zunkun"
 // })
 

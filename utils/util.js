@@ -4,6 +4,11 @@ var app_id = authSettings.app_id;
 var app_secret = authSettings.app_secret;
 var passwordReg = settings.accounts.password.reg;
 
+var bcrypt = require('bcrypt');
+var bcryptHash = bcrypt.hashSync;
+var bcryptCompare = bcrypt.compareSync;
+var SHA256 = require("sha256");
+
 var Util = function() {
 	this.name = "Util";
 }
@@ -144,7 +149,69 @@ Util.prototype.legalPassword = function(password) {
 	return passwordReg.test(password);
 }
 
+// ------------------------------------------------
+Util.prototype.generateClientId = function() {
+	return this.generateStr(false, 15);
+}
 
+// ------------------------------------------------
+
+Util.prototype.generateClientSecret = function() {
+	return this.generateStr(false, 20);
+}
+
+
+// ------------------------------------------------
+// Given a 'password' from the client, extract the string that we should
+// bcrypt. 'password' can be one of:
+//  - String (the plaintext password)
+//  - Object with 'digest' and 'algorithm' keys. 'algorithm' must be "sha-256".
+//
+Util.prototype.getPasswordString = function (password) {
+  if (typeof password === "string") {
+    password = SHA256(password);
+  } else { // 'password' is an object
+    if (password.algorithm !== "sha-256") {
+      throw new Error("Invalid password hash algorithm. " +
+                      "Only 'sha-256' is allowed.");
+    }
+    password = password.digest;
+  }
+  return password;
+};
+
+// ------------------------------------------------
+
+// Use bcrypt to hash the password for storage in the database.
+// `password` can be a string (in which case it will be run through
+// SHA256 before bcrypt) or an object with properties `digest` and
+// `algorithm` (in which case we bcrypt `password.digest`).
+//
+Util.prototype.hashPassword = function (password) {
+	var self = this;
+  password = self.getPasswordString(password);
+	var _bcryptRounds = 10;
+  return bcryptHash(password, _bcryptRounds);
+};
+
+// ------------------------------------------------
+Util.prototype.validExipiresId = function(updateTime, expiresIn) {
+	expiresIn = expiresIn || settings.auth.expiresIn;
+
+	updateTime = updateTime.getTime() / 1000;
+
+	nowTime = (new Date()).getTime() / 1000;
+
+	if((nowTime - updateTime)  >= expiresIn) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+// ------------------------------------------------
+
+Util.prototype.bcryptCompare = bcryptCompare;
 
 
 

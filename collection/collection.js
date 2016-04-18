@@ -24,10 +24,6 @@ module.exports = CollectionDb;
  * @param  {options}   options  create an collection options,
  * the options parameters shall contains the following properties:
  *
- * @property {string} app_id app_id for authority verification
- *
- * @property {string} app_secret app_id for authority verifaction
- *
  * @property {string} collectionName collection name shall be created
  *
  */
@@ -35,8 +31,7 @@ module.exports = CollectionDb;
 CollectionDb.prototype.createCollection = function(options) {
 	var self = this;
 	return new Promise(function(resolve, reject) {
-		if(!util.auth(options)
-			|| !options.hasOwnProperty("collectionName")) {
+		if(!options.hasOwnProperty("collectionName")) {
 			log("createCollection: options illegal.", options);
 
 			var err = "createCollection: options illegal.";
@@ -72,10 +67,6 @@ CollectionDb.prototype.createCollection = function(options) {
  * @param  {options}   options  drop an collection options,
  * the options parameters shall contains the following properties:
  *
- * @property {string} app_id app_id for authority verification
- *
- * @property {string} app_secret app_id for authority verifaction
- *
  * @property {string} collectionName collection name shall be drop
  *
  */
@@ -83,8 +74,7 @@ CollectionDb.prototype.createCollection = function(options) {
 CollectionDb.prototype.dropCollection = function(options) {
 	var self = this;
 	return new Promise(function(resolve, reject) {
-		if(!util.auth(options)
-			|| !options.hasOwnProperty("collectionName")) {
+		if(!options.hasOwnProperty("collectionName")) {
 			log("dropCollection: options illegal.", options);
 
 			var err = "dropCollection: options illegal.";
@@ -117,10 +107,6 @@ CollectionDb.prototype.dropCollection = function(options) {
  * @param  {options}   options  rename an collection options,
  * the options parameters shall contains the following properties:
  *
- * @property {string} app_id app_id for authority verification
- *
- * @property {string} app_secret app_id for authority verifaction
- *
  * @property {string} oldCollectionName collection name shall be rename
  *
  * @property {string} newCollectionName new collection name
@@ -130,8 +116,7 @@ CollectionDb.prototype.dropCollection = function(options) {
 CollectionDb.prototype.renameCollection = function(options) {
 	var self = this;
 	return new Promise(function(resolve, reject) {
-		if(!util.auth(options)
-			|| !options.hasOwnProperty("oldCollectionName")
+		if(!options.hasOwnProperty("oldCollectionName")
 			|| typeof(options.oldCollectionName) !== "string"
 			|| !options.hasOwnProperty("newCollectionName")
 			|| typeof(options.newCollectionName) !== "string") {
@@ -172,10 +157,6 @@ CollectionDb.prototype.renameCollection = function(options) {
  * @param  {options}   options
  * the options parameters shall contains the following properties:
  *
- * @property {string} app_id app_id for authority verification
- *
- * @property {string} app_secret app_id for authority verifaction
- *
  * @property {string} collectionName collection name needs to insert data
  *
  * @property {json} data user data that will insert to collection "collectionName"
@@ -185,8 +166,7 @@ CollectionDb.prototype.renameCollection = function(options) {
 CollectionDb.prototype.insertOne = function(options) {
 	var self = this;
 	return new Promise(function(resolve, reject) {
-		if(!util.auth(options)
-			|| !options.hasOwnProperty("collectionName")
+		if(!options.hasOwnProperty("collectionName")
 			|| typeof(options.collectionName) !== "string"
 			|| !options.hasOwnProperty("data")
 			|| !util.isJson(options.data)) {
@@ -244,10 +224,6 @@ CollectionDb.prototype.insertOne = function(options) {
  * @param  {options}   options
  * the options parameters shall contains the following properties:
  *
- * @property {string} app_id app_id for authority verification
- *
- * @property {string} app_secret app_id for authority verifaction
- *
  * @property {string} collectionName collection name needs to modify data
  *
  *@property {json} query mongodb query obj
@@ -264,8 +240,7 @@ CollectionDb.prototype.insertOne = function(options) {
 CollectionDb.prototype.findAndModify = function(options) {
 	var self = this;
 	return new Promise(function(resolve, reject) {
-		if(!util.auth(options)
-			|| !options.hasOwnProperty("collectionName")
+		if(!options.hasOwnProperty("collectionName")
 			|| typeof(options.collectionName) !== "string"
 			|| !options.hasOwnProperty("query")
 			|| !util.isJson(options.query)
@@ -345,10 +320,6 @@ CollectionDb.prototype.findAndModify = function(options) {
  * @param  {options}   options
  * the options parameters shall contains the following properties:
  *
- * @property {string} app_id app_id for authority verification
- *
- * @property {string} app_secret app_id for authority verifaction
- *
  * @property {string} collectionName collection name needs to remove data
  *
  *@property {json} query mongodb query obj
@@ -364,8 +335,7 @@ CollectionDb.prototype.findAndModify = function(options) {
 CollectionDb.prototype.findAndRemove = function(options) {
 	var self = this;
 	return new Promise(function(resolve, reject) {
-		if(!util.auth(options)
-			|| !options.hasOwnProperty("collectionName")
+		if(!options.hasOwnProperty("collectionName")
 			|| typeof(options.collectionName) !== "string"
 			|| !options.hasOwnProperty("query")
 			|| !util.isJson(options.query)) {
@@ -432,10 +402,6 @@ CollectionDb.prototype.findAndRemove = function(options) {
  * @param  {options}   options
  * the options parameters shall contains the following properties:
  *
- * @property {string} app_id app_id for authority verification
- *
- * @property {string} app_secret app_id for authority verifaction
- *
  * @property {string} collectionName collection name needs to remove data
  *
  *@property {json} selector mongodb selector obj
@@ -448,8 +414,7 @@ CollectionDb.prototype.findAndRemove = function(options) {
 CollectionDb.prototype.remove = function(options) {
 	var self = this;
 	return new Promise(function(resolve, reject) {
-		if(!util.auth(options)
-			|| !options.hasOwnProperty("collectionName")
+		if(!options.hasOwnProperty("collectionName")
 			|| typeof(options.collectionName) !== "string"
 			|| !options.hasOwnProperty("selector")) {
 
@@ -506,10 +471,6 @@ CollectionDb.prototype.remove = function(options) {
  * @param  {options}   options
  * the options parameters shall contains the following properties:
  *
- * @property {string} app_id app_id for authority verification
- *
- * @property {string} app_secret app_id for authority verifaction
- *
  * @property {string} collectionName collection name needs to remove data
  *
  *@property {json} query mongodb query obj
@@ -519,8 +480,7 @@ CollectionDb.prototype.remove = function(options) {
 CollectionDb.prototype.find = function(options) {
 	var self = this;
 	return new Promise(function(resolve, reject) {
-		if(!util.auth(options)
-			|| !options.hasOwnProperty("collectionName")
+		if(!options.hasOwnProperty("collectionName")
 			|| typeof(options.collectionName) !== "string"
 			|| !options.hasOwnProperty("query")
 			|| !util.isJson(options.query)) {
@@ -569,10 +529,6 @@ CollectionDb.prototype.find = function(options) {
  * @param  {options}   options
  * the options parameters shall contains the following properties:
  *
- * @property {string} app_id app_id for authority verification
- *
- * @property {string} app_secret app_id for authority verifaction
- *
  * @property {string} collectionName collection name needs to remove data
  *
  * @property {json} query mongodb query obj
@@ -586,8 +542,7 @@ CollectionDb.prototype.find = function(options) {
 CollectionDb.prototype.findOne = function(options) {
 	var self = this;
 	return new Promise(function(resolve, reject) {
-		if(!util.auth(options)
-			|| !options.hasOwnProperty("collectionName")
+		if(!options.hasOwnProperty("collectionName")
 			|| typeof(options.collectionName) !== "string"
 			|| !options.hasOwnProperty("query")
 			|| !util.isJson(options.query)) {
@@ -646,10 +601,6 @@ CollectionDb.prototype.findOne = function(options) {
  * @param  {options}   options
  * the options parameters shall contains the following properties:
  *
- * @property {string} app_id app_id for authority verification
- *
- * @property {string} app_secret app_id for authority verifaction
- *
  * @property {string} collectionName collection name needs to remove data
  *
  * @property {json} selector mongodb query selector
@@ -665,8 +616,7 @@ CollectionDb.prototype.findOne = function(options) {
 CollectionDb.prototype.update = function(options) {
 	var self = this;
 	return new Promise(function(resolve, reject) {
-		if(!util.auth(options)
-			|| !options.hasOwnProperty("collectionName")
+		if(!options.hasOwnProperty("collectionName")
 			|| typeof(options.collectionName) !== "string"
 			|| !options.hasOwnProperty("selector")
 			|| !options.hasOwnProperty("document")

@@ -13,7 +13,8 @@ module.exports = {
   },
   auth: {
     app_id: "kyl_app_id",
-    app_secret: "kyl_app_secret"
+    app_secret: "kyl_app_secret",
+    expiresIn: 2
   },
   nodeHost: {
     tophost: "tophost",
@@ -27,7 +28,9 @@ module.exports = {
     },
     ktype: "Ktype",
     kvalue: 'KValue',
-    users: "users"
+    users: "users",
+    client: 'clients',
+    token: 'token'
   },
   classType: {
     post: 'post'

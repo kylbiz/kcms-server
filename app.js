@@ -38,9 +38,7 @@ var server = restify.createServer({
 
 var RESOURCES = Object.freeze({
     INITIAL: "/",
-    TOKEN: "/token",
-    PUBLIC: "/public",
-    SECRET: "/api/secret"
+    TOKEN: "/token"
 });
 
 
@@ -95,6 +93,32 @@ server.post(API.createUser.api, kcms.createUser);
 server.post(API.resetPassword.api, kcms.resetPassword);
 
 server.post(API.findUserByQuery.api, kcms.findUserByQuery);
+
+
+server.post(API.createClientByUser.api, kcms.createClientByUser);
+
+server.post(API.updateClientSecret.api, kcms.updateClientSecret);
+
+server.post(API.createCollection.api, kcms.createCollection)
+
+server.post(API.dropCollection.api, kcms.dropCollection)
+
+server.post(API.renameCollection.api, kcms.renameCollection)
+
+server.post(API.insertOne.api, kcms.insertOne)
+
+server.post(API.findAndModify.api, kcms.findAndModify)
+
+server.post(API.findAndRemove.api, kcms.findAndRemove)
+
+server.post(API.removeDocs.api, kcms.removeDocs)
+
+server.post(API.queryDocs.api, kcms.queryDocs)
+
+server.post(API.queryOneDoc.api, kcms.queryOneDoc)
+
+server.post(API.updateDocs.api, kcms.updateDocs)
+
 
 //-------------------------------------------------
 

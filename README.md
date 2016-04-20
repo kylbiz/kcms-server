@@ -50,7 +50,8 @@ client.post('/token', data, function(err, req, res, obj) {
 建议本地保存 token , 其中 token 有时间限制， 不做返回 expiresId, 得到 token 结构 `{token_type: "", access: ""}`
 
 #### 测试连接
-1. 写 http 头
+
+###### 1. 写 http 头
 
 ```
 var client = restify.createJsonClient({
@@ -62,7 +63,7 @@ var client = restify.createJsonClient({
 
 ```
 
-2. 测试是否能访问服务，`HTTP POST` 访问 `test` 接口，如下：
+###### 2. 测试是否能访问服务，`HTTP POST` 访问 `test` 接口，如下：
 
 ```
 Method:  POST
@@ -97,7 +98,7 @@ client.post(url,
 #### type 接口
 为什么要创建 `type` ， 而且在所有创建节点之前都要指定 typeId, 这样是为了指示本节点究竟为什么类型节点，比如你创建一篇文章，你表示该节点是一个文章类型，或者更具体写是什么类型文章，你需要清楚，你创建的是什么。
 
-1. 创建 type
+###### 1. 创建 type
 
 ```
 Method: POST
@@ -112,7 +113,7 @@ API: /api/type/update
 |description|F| 当前 type 说明|
 |hostDomain|T|标示 host domain 的参数，必须正确|
 
-2. 更新 type
+###### 2. 更新 type
 
 ```
 Method: POST
@@ -130,7 +131,7 @@ API: /api/type/create
 
 说明： 修改的即是 typeName 和 description ，因此这两个参数至少有一个
 
-2. 删除 type
+###### 3. 删除 type
 
 ```
 Method: POST
@@ -146,7 +147,7 @@ API: /api/type/remove
 
 #### post（文章） 接口
 
-1. 创建 post
+###### 1. 创建 post
 
 ```
 Method: POST
@@ -176,7 +177,7 @@ API: /api/post/create
 |readTimes||阅读次数统计|
 |postImgs||文章所属的图片连接 {Array}, like [{imgurl: $imgurl}]|
 
-2. 修改文章
+###### 2. 修改文章
 
 ```
 Method: POST
@@ -192,7 +193,7 @@ API: /api/post/update
 |post|Y|JSON结构需要修改的 post内容|
 
 
-3. 删除文章
+###### 3. 删除文章
 
 ```
 Method: POST
@@ -208,7 +209,7 @@ API: /api/post/remove
 
 #### 用户接口
 
-1. 创建用户
+###### 1. 创建用户
 
 ```
 Method: POST
@@ -225,7 +226,7 @@ API: /api/user/create
 |hostDomain|Y|标示 host domain 的参数，必须正确|
 
 
-2. 重置用户密码
+###### 2. 重置用户密码
 
 ```
 Method: POST
@@ -241,7 +242,7 @@ API: /api/password/reset
 |oldPassword|Y|当前用户密码|
 |newPassword|Y|修改新的用户密码|
 
-3. 查询用户信息
+###### 3. 查询用户信息
 
 ```
 Method: POST
@@ -258,19 +259,44 @@ API: /api/user/query
 |userId|Y| 用户 ID, 和 username, email 必须有一个|
 
 
-### 给用户分配 clientId 和 clientSecret
+#### 给制定用户分配 clientId 和 clientSecret
+
+###### 1. 分配 clientId 和 clientSecret
+
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/user/client/create
+```
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|clientName|Y|用户授权的 client 名称|
+|username|Y|用户名称，和 email, userId 必须有一个|
+|email|Y|用户 email , 和 username, userId 必须至少提供一个参数|
+|userId|Y| 用户 ID, 和 username, email 必须有一个|
 
 
+###### 2. 修改 clientSecret
 
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/user/client/update
+```
 
-
-
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|userId|Y| 用户 ID, 和 username, email 必须有一个|
+|clientId|Y| 用户授权的 client ID|
 
 
 ####  host 接口
 host 是为了创建区分数据库中的数据的，而制定当前数据为那个 host , 由于在配置文件 settings 总有 host参数，所有暂时可以不需要这个参数，如果需要使用数据库中的host， 则可以修改相应的代码
 
-1. 创建/修改 host
+###### 1. 创建/修改 host
 
 ```
 Method: POST
@@ -285,7 +311,7 @@ API: /api/host/update
 |hostEnName|N|host 的英文名称，默认为 hostDomain|
 |hostDescription|N| hostDomain 说明|
 
-2. 删除 host
+###### 2. 删除 host
 
 ```
 Method: POST
@@ -297,10 +323,192 @@ API: /api/host/remove
 |-----|-----|-----|
 |hostDomain|Y|标示 host domain 的参数，必须正确|
 
----
+
+### 数据库操作
+
+###### 1. 创建 collection
+
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/collection/create
+```
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|collectionName|Y|需要创建的 collection 的名称|
+
+
+###### 2. 删除 collection
+
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/collection/drop
+```
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|collectionName|Y|需要删除的 collection 的名称|
+
+
+###### 3. 重命名 collection
+
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/collection/rename
+```
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|oldCollectionName|Y|需要修改的 collection 的名称|
+|newCollectionName|Y|修改后的 collection 的名称|
+
+
+###### 4. 插入一条数据
+
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/doc/insert
+```
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|collectionName|Y|需要插入到的 collection 的名称|
+|data|Y|collection 中插入的数据|
+
+data中可以是任何 json对象数据，不过其中可以有
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|updateTime|N| 数据更新时间|
+|createTime|N| 数据创建时间|
+
+
+###### 5. 查找并修改数据
+
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/doc/modify
+```
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|collectionName|Y|需要修改数据的 collection 的名称|
+|query|Y| 数据查询条件|
+|doc|Y|需要更新的数据|
+
+具体操作可以查看 mongodb 的说明文档 [findAndModify]，此处不做解释
+
+
+###### 6. 删除多条数据
+
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/docs/remove
+```
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|collectionName|Y|需要删除数据的 collection 的名称|
+|selector|Y| 查询条件|
+
+具体操作可以查看 mongodb 的说明文档 [remove]，此处不做解释
+
+
+###### 7. 删除一条数据
+
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/doc/remove
+```
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|collectionName|Y|需要删除数据的 collection 的名称|
+|selector|Y| 查询条件|
+
+具体操作可以查看 mongodb 的说明文档 [findAndRemove]，此处不做解释
+
+###### 8. 查找多条数据
+
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/docs/query
+```
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|collectionName|Y|需要查找数据的 collection 的名称|
+|query|Y| 数据查询条件|
+
+具体操作可以查看 mongodb 的说明文档 [find]，此处不做解释
+
+###### 9. 查找单条数据
+
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/doc/query
+```
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|collectionName|Y|需要查找数据的 collection 的名称|
+|query|Y| 数据查询条件|
+|findOptions|N| 查询的 options|
+
+具体操作可以查看 mongodb 的说明文档 [findOne]，此处不做解释
+
+
+
+###### 10. 修改多条数据
+
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/docs/update
+```
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|collectionName|Y|需要修改数据的 collection 的名称|
+|selector|Y|查询条件|
+|document|Y|需要修改的document 对象|
+
+具体操作可以查看 mongodb 的说明文档 [update]，此处不做解释
+
+
+
 ### LICENSE: MIT
 
 
-
-
 [ropc]: http://tools.ietf.org/html/rfc6749#section-1.3.3
+
+[findAndModify]: http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findAndModify
+
+[remove]: http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#remove
+
+[findAndRemove]: http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findAndRemove
+
+[find]: http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#find
+
+[findOne]: http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#findOne
+
+[update]: http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#update

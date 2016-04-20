@@ -58,5 +58,65 @@ module.exports = {
     api: '/api/user/query',
     type: 'POST',
     description: 'find user by query'
+  },
+  createClientByUser: {
+    api: '/api/user/client/create',
+    type: 'POST',
+    description: 'create user createId'
+  },
+  updateClientSecret: {
+    api: '/api/user/client/update',
+    type: 'POST',
+    description: 'update user clientSecret'
+  },
+  createCollection: {
+    api: '/api/collection/create',
+    type: 'POST',
+    description: 'create an collection'
+  },
+  dropCollection: {
+    api: '/api/collection/drop',
+    type: 'POST',
+    description: 'drop an collection'
+  },
+  renameCollection: {
+    api: '/api/collection/rename',
+    type: 'POST',
+    description: 'rename an collection'
+  },
+  insertOne: {
+    api: '/api/doc/insert',
+    type: 'POST',
+    description: 'insert an document to db'
+  },
+  findAndModify: {
+    api: '/api/doc/modify',
+    type: 'POST',
+    description: 'find an doc and modify'
+  },
+  findAndRemove: {
+    api: '/api/doc/remove',
+    type: 'POST',
+    description: 'find and doc and remove it'
+  },
+  removeDocs: {
+    api: '/api/docs/remove',
+    type: 'POST',
+    description: 'remove documents'
+  },
+  queryDocs: {
+    api: '/api/docs/query',
+    type: 'POST',
+    description: 'query docs from db'
+  },
+  queryOneDoc: {
+    api: '/api/doc/query',
+    type: 'POST',
+    description: 'find one doc'
+  },
+  updateDocs: {
+    api: '/api/docs/update',
+    type: 'POST',
+    description: 'update docs'
   }
 }

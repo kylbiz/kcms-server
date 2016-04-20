@@ -59,7 +59,6 @@ CollectionDb.prototype.createCollection = function(options) {
 	})
 }
 
-
 // ------------------------------------------------
 /**
  * drop collection function

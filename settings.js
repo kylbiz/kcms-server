@@ -11,6 +11,12 @@ module.exports = {
     port: 3000,
     name: "kcms_server" // this server name you shall define
   },
+  admin: {
+    username: 'admin',
+    password: 'kylbiz123',
+    roles: ['develop', 'customer'],
+    clientName: 'kcms'
+  },
   auth: {
     expiresIn: 7200
   },

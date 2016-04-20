@@ -24,7 +24,7 @@ var testCreateClient = function(options){
 }
 
 testCreateClient({
-  username: "zunkun"
+  username: "admin"
 })
 
 // ---------------------------------------------------

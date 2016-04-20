@@ -3,9 +3,16 @@ var restify = require("restify");
 var restifyOAuth2 = require("restify-oauth2");
 var hooks = require("./lib/oauth/hooks");
 
+var API = require("./api");
 
 var KCMS = require('./lib/kcms').KCMS;
 var kcms = new KCMS();
+
+var Init = require("./lib/init").Init;
+var init = new Init();
+
+init.initUser();
+
 
 var serverSettings = require("./settings").server;
 var port = serverSettings.port;
@@ -51,56 +58,43 @@ server.use(restify.bodyParser({mapParams: false}));
 restifyOAuth2.ropc(server, { tokenEndpoint: RESOURCES.TOKEN, hooks: hooks });
 
 //-------------------------------------------------
-server.post("/test", kcms.test)
+// test connection use post
+server.post(API.test.api, kcms.test)
 
-server.get(RESOURCES.INITIAL, function (req, res) {
-    var response = {
-        _links: {
-            self: { href: RESOURCES.INITIAL },
-            "http://rel.example.com/public": { href: RESOURCES.PUBLIC }
-        }
-    };
+//-------------------------------------------------
+// ktype handle
+// ktype represents a kind of node, which may be a folder,
+// a file , an article, a photo, it is the sets of these concept.
 
-    if (req.username) {
-        response._links["http://rel.example.com/secret"] = { href: RESOURCES.SECRET };
-    } else {
-        response._links["oauth2-token"] = {
-            href: RESOURCES.TOKEN,
-            "grant-types": "password",
-            "token-types": "bearer"
-        };
-    }
+server.post(API.createType.api, kcms.createType);
 
-    res.contentType = "application/hal+json";
-    res.send(response);
-});
+server.post(API.updateType.api, kcms.updateType);
 
-server.get(RESOURCES.PUBLIC, function (req, res) {
-    res.send({
-        "public resource": "is public",
-        "it's not even": "a linked HAL resource",
-        "just plain": "application/json",
-        "personalized message": req.username ? "hi, " + req.username + "!" : "hello stranger!"
-    });
-});
+server.post(API.removeType.api, kcms.removeType);
 
-server.get(RESOURCES.SECRET, function (req, res) {
-  console.log(req.username)
-    if (!req.username) {
-        return res.sendUnauthenticated();
-    }
+//-------------------------------------------------
+// article handle
 
-    var response = {
-        "users with a token": "have access to this secret data",
-        _links: {
-            self: { href: RESOURCES.SECRET },
-            parent: { href: RESOURCES.INITIAL }
-        }
-    };
+server.post(API.createPost.api, kcms.createPost);
 
-    res.contentType = "application/hal+json";
-    res.send(response);
-});
+server.post(API.updatePost.api, kcms.updatePost);
+
+server.post(API.removePost.api, kcms.removePost);
+
+//-------------------------------------------------
+// host handle
+
+server.post(API.updateHost.api, kcms.updateHost);
+
+server.post(API.removeHost.api, kcms.removeHost);
+
+//-------------------------------------------------
+
+server.post(API.createUser.api, kcms.createUser);
+
+server.post(API.resetPassword.api, kcms.resetPassword);
+
+server.post(API.findUserByQuery.api, kcms.findUserByQuery);
 
 //-------------------------------------------------
 

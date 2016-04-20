@@ -55,7 +55,7 @@ module.exports = {
     description: 'reset password'
   },
   findUserByQuery: {
-    api: '/api/user',
+    api: '/api/user/query',
     type: 'POST',
     description: 'find user by query'
   }

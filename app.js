@@ -1,11 +1,15 @@
 var restify = require("restify");
 
 var restifyOAuth2 = require("restify-oauth2");
-var hooks = require("./lib/oauth/hooks");
+// var hooks = require("./lib/oauth-ropc/hooks");
+
+var hooks = require("./lib/oauth-cc/hooks");
 
 var API = require("./api");
 
-var KCMS = require('./lib/kcms').KCMS;
+// var KCMS = require('./lib/kcms-ropc').KCMS;
+var KCMS = require('./lib/kcms-cc').KCMS;
+
 var kcms = new KCMS();
 
 var Init = require("./lib/init").Init;
@@ -53,7 +57,9 @@ server.use(restify.jsonp());
 server.use(restify.gzipResponse());
 server.use(restify.bodyParser({mapParams: false}));
 
-restifyOAuth2.ropc(server, { tokenEndpoint: RESOURCES.TOKEN, hooks: hooks });
+// restifyOAuth2.ropc(server, { tokenEndpoint: RESOURCES.TOKEN, hooks: hooks });
+
+restifyOAuth2.cc(server, { tokenEndpoint: RESOURCES.TOKEN, hooks: hooks });
 
 //-------------------------------------------------
 // test connection use post

@@ -3,11 +3,11 @@ KCMS2016 服务端组件
 
 此组件是为了动态创建，组装，管理数据库中模块而开发，可以应用到网站开发之中。
 
-最初目的，是为了在CMS搭建过程中，动态生成所需要组建，方便模块管理，目前项目还在开发阶段。
+最初目的，是为了在CMS搭建过程中，动态生成所需要组建，方便模块管理。
 
 
 ### 说明：
-1. 本服务采用 oauth2 中的 [Resource Owner Password Credentials][ropc] , 需要提供 `username`, `password`, `clientId`, `clientSecret`, `grant_type`, 其中 `grant_type = password`。
+1. 本服务采用 oauth2 中的 [Resource Owner Password Credentials][ropc]  或 [Client Credentials][cc] , 其中 Resource Owner Password Credentials 需要提供 `username`, `password`, `clientId`, `clientSecret`, `grant_type`, 其中 `grant_type = password`， Client Credentials 只需要提供`clientId`, `clientSecret`, `grant_type`, 其中 `grant_type = client_credentials` 。 这两种 grant_type 切换，需要在 配置 app.js 中代码， 查看即可知晓， 在 cc oauth2 中不提供 scope 参数，如果需要可以自己开发。
 
 2. 本服务采用 REST API 访问，需要使用 `Bearer + " " + token ` 写入 http 头中 `authorization ` 字段中
 
@@ -80,7 +80,12 @@ Results:
 var url = '/test';
 
 client.post(url,
-  {message: 'hello, world!'},
+  {
+    grant_type: 'password',
+    username: $username,
+    password: $password,
+    message: 'hello, world!'
+  },
   function(err, req, res, obj) {
     if(err) {
       util.log("Test: test post error.", err);
@@ -90,6 +95,7 @@ client.post(url,
 })
 
 ```
+** 注意： ropc 需要提供 userame, password, grant_type, 而 cc 只需要提供 grant_type 参数 **
 
 如果能过正确返回， 则表示已经访问服务成功，可以正确使用其他接口
 
@@ -498,6 +504,7 @@ API: /api/docs/update
 
 ### LICENSE: MIT
 
+[cc]: http://tools.ietf.org/html/rfc6749#section-1.3.4
 
 [ropc]: http://tools.ietf.org/html/rfc6749#section-1.3.3
 

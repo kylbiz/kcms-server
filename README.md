@@ -259,7 +259,7 @@ API: /api/user/query
 |userId|Y| 用户 ID, 和 username, email 必须有一个|
 
 
-#### 给制定用户分配 clientId 和 clientSecret
+#### 给指定用户分配 clientId 和 clientSecret
 
 ###### 1. 分配 clientId 和 clientSecret
 

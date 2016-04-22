@@ -223,5 +223,41 @@ var testRemoveNode = function() {
 		})
 }
 
-testRemoveNode();
+// testRemoveNode();
+// ------------------------------------------------
+
+var testCopyNode = function(options) {
+	var copyOptions = {
+		sonNodeId: 'a41LOhmYIbQTAsfrqspyhJulwSXivTUT3GKFmVl8',
+		fatherNodeId: 'a21LOhmYIbQTAsfrqspyhJulwSXivTUT3GKFmVl8',
+		hostDomain: 'kyl.biz'
+	}
+
+	nodeClient.copyNode(copyOptions)
+		.then(function(results) {
+			log("Test: copy node succeed.");
+		})
+		.catch(function(err) {
+			log("Test: copy node error.", err);
+		})
+}
+
+testCopyNode({})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // ------------------------------------------------

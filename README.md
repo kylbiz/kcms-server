@@ -9,6 +9,8 @@ KCMS2016 服务端组件
 ### 说明：
 1. 本服务采用 oauth2 中的 [Resource Owner Password Credentials][ropc]  或 [Client Credentials][cc] , 其中 Resource Owner Password Credentials 需要提供 `username`, `password`, `clientId`, `clientSecret`, `grant_type`, 其中 `grant_type = password`， Client Credentials 只需要提供`clientId`, `clientSecret`, `grant_type`, 其中 `grant_type = client_credentials` 。 这两种 grant_type 切换，需要在 配置 app.js 中代码， 查看即可知晓， 在 cc oauth2 中不提供 scope 参数，如果需要可以自己开发。
 
+注意谨慎使用 ROPC， 当你访问 创建用户的时候，或者和用户相关西要提供 `username` 参数，这时候因为 ropc 需要提供 `username` , 这里会有冲突，所以建议所写的参数，不要直接接受 `username` 参数。这里不再更改原来接受 `username`的方法，要是你看不惯，自己改。
+
 2. 本服务采用 REST API 访问，需要使用 `Bearer + " " + token ` 写入 http 头中 `authorization ` 字段中
 
 3. 本服务中的 `节点(node， 或者称为元素)` 概念 只是 虚拟的一个树中的一个节点，这个节点可以映射到任何一条数据库中的记录，可以是 一篇文章，一个文件，一张图片...， 在一个节点下面还可以有多个节点，也就是节点组合成为一棵树。
@@ -499,6 +501,127 @@ API: /api/docs/update
 |document|Y|需要修改的document 对象|
 
 具体操作可以查看 mongodb 的说明文档 [update]，此处不做解释
+
+
+### NODE 操作
+
+###### 1. 创建 NODE
+
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/node/create
+```
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|hostDomain|Y|标示 host domain 的参数，必须正确|
+|nodeName|T|node 名称|
+|description|N||node 说明|
+|createUserId|N|创建node 的 用户 ID|
+|fatherNodeId|N|父节点ID|
+
+注意： fatherNodeId 如果不指定，会被默认指定在 virtualhost
+
+
+###### 2. update node by id
+
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/node/id/update
+```
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|hostDomain|Y|标示 host domain 的参数，必须正确|
+|nodeId|Y|当前node ID|
+|document|Y|需要更新 object|
+
+其中 document 样式可以参考 mongodb 的 update 接口
+
+
+###### 3. update node by name
+
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/node/name/update
+```
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|hostDomain|Y|标示 host domain 的参数，必须正确|
+|nodeName|Y|node name|
+|document|Y|update object|
+
+其中 document 样式可以参考 mongodb 的 update 接口
+
+
+###### 4. 联结父子节点
+
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/node/link
+```
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|hostDomain|Y|标示 host domain 的参数，必须正确|
+|fatherNodeId|Y|父节点ID|
+|sonNodeId|Y|子节点ID|
+
+###### 4. 将当前节点从父节点解除联结
+
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/node/unlink
+```
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|hostDomain|Y|标示 host domain 的参数，必须正确|
+|nodeId|Y|需要 nodeId 提供|
+
+
+###### 5. 删除节点
+
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/node/remove
+```
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|hostDomain|Y|标示 host domain 的参数，必须正确|
+|nodeId|Y|需要 nodeId 提供|
+
+
+###### 6. 复制节点
+
+```
+Method: POST
+Content-Type: application/json,
+Authorization: Bearer + " " + access_token
+API: /api/node/copy
+```
+
+|参数| 是否必须|参数说明|
+|-----|-----|-----|
+|hostDomain|Y|标示 host domain 的参数，必须正确|
+|fatherNodeId|Y|需要提供 father node id|
+|sonNodeId|Y|需要提供 son node id|
+
+注意： 如果需要复制的节点有子节点，将不提供复制功能，如果需要这样的功能，请自己开发。
 
 
 

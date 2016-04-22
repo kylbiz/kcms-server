@@ -41,7 +41,6 @@ var server = restify.createServer({
 });
 
 var RESOURCES = Object.freeze({
-    INITIAL: "/",
     TOKEN: "/token"
 });
 
@@ -125,6 +124,19 @@ server.post(API.queryOneDoc.api, kcms.queryOneDoc)
 
 server.post(API.updateDocs.api, kcms.updateDocs)
 
+server.post(API.createNode.api, kcms.createNode)
+
+server.post(API.updateNodeByName.api, kcms.updateNodeByName)
+
+server.post(API.updateNodeByNodeId.api, kcms.updateNodeByNodeId)
+
+server.post(API.linkNode.api, kcms.linkNode)
+
+server.post(API.unlinkNode.api, kcms.unlinkNode)
+
+server.post(API.removeNode.api, kcms.removeNode)
+
+server.post(API.copyNode.api, kcms.copyNode)
 
 //-------------------------------------------------
 

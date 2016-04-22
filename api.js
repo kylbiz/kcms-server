@@ -118,5 +118,40 @@ module.exports = {
     api: '/api/docs/update',
     type: 'POST',
     description: 'update docs'
+  },
+  createNode: {
+    api: '/api/node/create',
+    type: 'POST',
+    description: 'create node handle.'
+  },
+  updateNodeByName: {
+    api: '/api/node/name/update',
+    type: 'POST',
+    description: 'update node by name'
+  },
+  updateNodeByNodeId: {
+    api: '/api/node/id/update',
+    type: 'POST',
+    description: 'update node by id'
+  },
+  linkNode: {
+    api: '/api/node/link',
+    type: 'POST',
+    description: 'link node handle.'
+  },
+  unlinkNode: {
+    api: '/api/node/unlink',
+    type: 'POST',
+    description: 'unlink node handle.'
+  },
+  removeNode: {
+    api: '/api/node/remove',
+    type: 'POST',
+    description: 'remove node physicaly'
+  },
+  copyNode: {
+    api: '/api/node/copy',
+    type: 'POST',
+    description: 'copy node to another node if current node has no sons.'
   }
 }

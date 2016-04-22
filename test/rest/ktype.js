@@ -1,8 +1,8 @@
 var util = new (require("../../utils/util").Util)
 
-var hostDomain = require('../../settings').domain.hostDomain;
-
 var Common = require('./common');
+
+var hostDomain = "liuzunkun.com"
 
 var createTypeUrl = '/api/type/create';
 

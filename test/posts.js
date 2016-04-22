@@ -4,10 +4,9 @@ var postClient = new Posts();
 
 var settings = require("../settings");
 
-var hostDomain = settings.domain.hostDomain;
-
 var kvalueDb = settings.collection.kvalue;
 
+var hostDomain = "kyl.biz";
 
 var CollectionDb = require("../collection/collection");
 var collectionDb = new CollectionDb();
@@ -49,9 +48,9 @@ var testCreatePosts = function() {
 
 var testUpdatePost = function() {
   var findOneOptions = {
-    hostDomain: hostDomain,
     collectionName: kvalueDb,
     query: {
+      hostDomain: hostDomain,
       classType: "post"
     }
   }

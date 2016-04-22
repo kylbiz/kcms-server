@@ -13,7 +13,6 @@ var hostEnName = "liuzunkun";
 var hostCnName = "liuzunkun website"
 var hostDescription = "THE DOMAIN FOR LIUZUNKUN";
 var updateHostOptions = {
-	collectionName: host.dbName,
 	hostCnName: hostCnName,
 	hostEnName: hostEnName,
 	hostDescription: hostDescription,

@@ -47,11 +47,11 @@ var username = "zunkun";
 var email = "zunkun.liu@kyl.biz";
 var password = "abdefgh";
 
-testCreateUser({
-  username: username,
-  password: password,
-  email: email
-});
+// testCreateUser({
+//   username: username,
+//   password: password,
+//   email: email
+// });
 
 // ------------------------------------------------
 var testResetPassword = function(options) {
@@ -85,7 +85,7 @@ var testResetPassword = function(options) {
 
 // testResetPassword({
 //   username: username,
-//   oldPassword: "abcdefghijkll",
+//   oldPassword: "abdefgh",
 //   newPassword: "abcdefghijkl"
 // })
 
@@ -112,8 +112,9 @@ var testFindUserByQuery = function(options) {
     })
 }
 
-// testFindUserByQuery({
-//   username: "zunkun"
-// })
+testFindUserByQuery({
+  // username: "zunkun",
+  // email: 'zunkun.liu@kyl.biz'
+})
 
 // ------------------------------------------------

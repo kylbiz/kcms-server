@@ -49,7 +49,6 @@ var nodeLists = ["user",
 // -------------------------------------------
 
 // collectionDb.findOne({
-// 	hostDomain: hostDomain,
 // 	collectionName: "NodeMap",
 // 	query: {
 // 		hostDomain: hostDomain,
@@ -75,9 +74,9 @@ var nodeLists = ["user",
 
 function testUpdateNode(nodeName) {
 	var updateOptions = {
-		hostDomain: hostDomain,
 		nodeName: nodeName,
 		selector: {
+			hostDomain: hostDomain,
 			nodeName: nodeName
 		},
 		document: {
@@ -107,7 +106,6 @@ var nodeName = "user";
 
 var testLinkNode = function() {
 	collectionDb.findOne({
-		hostDomain: hostDomain,
 		collectionName: "NodeMap",
 		query: {
 			hostDomain: hostDomain,
@@ -118,7 +116,6 @@ var testLinkNode = function() {
 		var fatherNodeId = results.nodeId;
 
 		var userAddressOptions = {
-			hostDomain: hostDomain,
 			collectionName: "NodeMap",
 			nodeName: "userAddress",
 			query: {
@@ -159,7 +156,6 @@ var testLinkNode = function() {
 
 var testUnlinkNode = function() {
 	var unlinkOptions = {
-		hostDomain: hostDomain,
 		collectionName: "NodeMap",
 		nodeName: "contry2",
 		query: {
@@ -196,7 +192,6 @@ var testUnlinkNode = function() {
 // ------------------------------------------------
 var testRemoveNode = function() {
 	var removeNodeOptions = {
-		hostDomain: hostDomain,
 		collectionName: "NodeMap",
 		nodeName: "contry2",
 		query: {

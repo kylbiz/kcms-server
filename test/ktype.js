@@ -6,7 +6,7 @@ var settings = require("../settings");
 
 var ktypeDb = settings.collection.ktype;
 
-var hostDomain = "kyl.biz";
+var hostDomain = "liuzunkun.com";
 
 
 var CollectionDb = require("../collection/collection");
@@ -46,8 +46,8 @@ var description = "这是区域分类";
 var testUpdateType = function(typeName, description) {
   var findOptions = {
     collectionName: ktypeDb,
-    hostDomain: hostDomain,
     query: {
+      hostDomain: hostDomain
 
     }
   }
@@ -87,8 +87,8 @@ var testUpdateType = function(typeName, description) {
 var testRemoveType = function(options) {
   var findOptions = {
     collectionName: ktypeDb,
-    hostDomain: hostDomain,
     query: {
+      hostDomain: hostDomain
 
     }
   }
@@ -116,7 +116,7 @@ var testRemoveType = function(options) {
       })
 }
 
-// testRemoveType();
+testRemoveType();
 
 
 // ------------------------------------------------

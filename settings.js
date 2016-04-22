@@ -39,10 +39,6 @@ module.exports = {
   classType: {
     post: 'post'
   },
-  domain: { // user must provide domain configuration
-    defaultDomain: 'kyl.biz',
-    hostDomain: "kyl.biz"
-  },
   accounts: {
     password: {
       // Reference: http://bbs.csdn.net/topics/390805595
